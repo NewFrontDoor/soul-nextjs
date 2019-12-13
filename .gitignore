@@ -18,9 +18,6 @@
 #sanity
 /lib/sanity.js
 
-#api
-/pages/api
-
 # misc
 .DS_Store
 .env*
