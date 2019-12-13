@@ -3,6 +3,7 @@ import {jsx, Styled} from 'theme-ui';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import ky from 'ky-universal';
+import hostUrl from '../lib/host-url';
 import slider from '../public/main-grey-scale.png';
 // Import Carousel from '../carousel/carousel';
 import segments from '../components/home-segments';
@@ -128,31 +129,11 @@ const sermonQuery = `
   } | order(preachedDate desc)
   `;
 
-const kyapi = ky.create({
-  prefixUrl: 'http://localhost:3000',
-  method: 'post'
+const soulApi = ky.create({
+  prefixUrl: hostUrl
 });
 
 Home.getInitialProps = async () => {
-  const complexQuery = {
-    method: 'post',
-    query: {
-      page: 1,
-      page_size: 10,
-      start: new Date().toISOString().split('T')[0],
-      end: new Date(new Date().getFullYear() + 1, 11, 1)
-        .toISOString()
-        .split('T')[0],
-      calendar: [
-        '584d565f-0625-454d-9649-a3b9df469d4d',
-        '5d40dfdc-d3a5-446d-9e1f-0c6064f723a8',
-        '82344fc7-1be9-4724-be7c-3742d4de441c',
-        '92054db2-bb14-473a-8e1b-de5fd49bea69',
-        '9d41c2ba-39b2-11e6-bedb-061a3b9c64af',
-        'feb96937-7310-47db-a4f1-50d58753f9ad'
-      ]
-    }
-  };
   const results = await fetchQuery(
     `{
         "mainData": ${mainQuery},
@@ -160,9 +141,11 @@ Home.getInitialProps = async () => {
         "sermonData": ${sermonQuery}
     }`
   );
-  results.events = await kyapi('api/events', {
-    body: JSON.stringify(complexQuery)
-  }).json();
+  const {
+    events: {event}
+  } = await soulApi('api/events').json();
+  results.events = event;
+
   return results;
 };
 

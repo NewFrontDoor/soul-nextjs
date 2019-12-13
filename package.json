@@ -24,6 +24,7 @@
     "embla-carousel-react": "^1.2.7",
     "emotion-theming": "^10.0.19",
     "final-form": "^4.18.6",
+    "got": "^10.0.4",
     "ky": "^0.16.1",
     "ky-universal": "^0.3.0",
     "micro-cors": "^0.1.1",
