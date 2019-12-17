@@ -2,10 +2,10 @@ import React from 'react';
 import {Styled} from 'theme-ui';
 import PropTypes from 'prop-types';
 
-export default function TextCard({header, description}) {
+export default function TextCard({title, description}) {
   return (
     <div>
-      <Styled.h3>{header}</Styled.h3>
+      <Styled.h3>{title}</Styled.h3>
       {description}
     </div>
   );
@@ -13,5 +13,5 @@ export default function TextCard({header, description}) {
 
 TextCard.propTypes = {
   description: PropTypes.element.isRequired,
-  header: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired
 };

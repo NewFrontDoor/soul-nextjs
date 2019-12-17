@@ -1,9 +1,9 @@
 import React from 'react';
 import {Container} from '@theme-ui/components';
 import PropTypes from 'prop-types';
-import {fetchQuery} from '../lib/sanity';
-import SanityBlock from '../utils/block-text-serializer';
-import Layout from '../components/layout';
+import {fetchQuery} from '../../lib/sanity';
+import SanityBlock from '../../utils/block-text-serializer';
+import Layout from '../../components/layout';
 
 const menuQuery = `
 *[_type == "main"][0] {
@@ -21,11 +21,11 @@ const menuQuery = `
 
 function Page({menuData, mainData}) {
   const {body} = mainData;
-
   return (
     <Layout menuData={menuData} mainData={mainData}>
       <Container>
         <SanityBlock blocks={body} />
+        <p>HERE IS WHERE THE SERMON TABLE WILL GO</p>
       </Container>
     </Layout>
   );
@@ -36,35 +36,26 @@ Page.propTypes = {
   mainData: PropTypes.object.isRequired
 };
 
-Page.getInitialProps = async ({query}) => {
+Page.getInitialProps = async () => {
   const pageQuery = `
-    *[_type == "page" && '${query.slug}' match slug.current][0] {
+    *[_type == "page" && 'sermons' match slug.current][0] {
       ...,
       body[]{
         ...,
         _type == 'reference' => @-> {
           ...,
-          "blocks": [
-            ...blocks[_type == 'reference']->{
-              key,
-              title,
-              "description": preview[_type != 'reference'],
-              mainImage,
-              "link": {
-                "type": "slug",
-                "url": slug.current
-              },
+          blocks[] {
+            ...,
+            _type == 'reference' => @ -> {
+              "_type": "griditem",
+              "description": body,
+              "header": title,
+              "image": mainImage,
+              "link": slug
             },
-            ...blocks[_type == 'griditem']{
-              key,
-              title,
-              description,
-              mainImage,
-              "link": {
-                "url": link
-              }
-            }
-          ]
+            "image": image.asset->url,
+            "link": link[0].url
+          }
         },
         markDefs[] {
           ...,

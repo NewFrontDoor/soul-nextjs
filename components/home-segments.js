@@ -43,7 +43,7 @@ function Sermon({sermonData}) {
           .fit('fill')
           .url()}
       />
-      <Link href={`/sermon/${_id}`}>
+      <Link href="/sermons/[_id]" as={`/sermon/${_id}`}>
         <Styled.a>
           <Styled.h4 sx={{marginTop: '8px'}}>{title}</Styled.h4>
         </Styled.a>
@@ -59,9 +59,9 @@ function Sermon({sermonData}) {
         download now
       </Styled.a>
       <br />
-      <Styled.a sx={{color: 'light'}} href={url}>
-        view all sermons
-      </Styled.a>
+      <Link passHref href="/sermons" as="/sermons">
+        <Styled.a sx={{color: 'light'}}>view all sermons</Styled.a>
+      </Link>
     </div>
   ) : (
     'loading...'

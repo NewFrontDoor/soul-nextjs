@@ -6,7 +6,7 @@ const pipeline = promisify(stream.pipeline);
 
 const elvantoApi = got.extend({
   headers: {
-    authorization: process.env.ELVANTO_TOKEN
+    authorization: `Basic ${process.env.ELVANTO_TOKEN}`
   },
   prefixUrl: 'https://api.elvanto.com/v1'
 });

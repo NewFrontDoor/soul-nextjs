@@ -40,7 +40,7 @@ export default function Navigation({menuData}) {
   const [menuVisible, toggleMenuVisible] = useState(false);
   return (
     <Header theme={theme}>
-      <Link href="/">
+      <Link href="/" as="/">
         <a sx={{flex: '0 1 auto', height: '110px'}}>
           <Logo sx={{height: '80px', fill: 'white', paddingBottom: '1rem'}} />
         </a>

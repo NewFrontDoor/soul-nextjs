@@ -7,12 +7,14 @@
     "build": "next build",
     "start": "next start"
   },
+  "homepage": "https://soulnext.readeral.now.sh",
   "dependencies": {
     "@emotion/core": "^10.0.22",
     "@emotion/styled": "^10.0.23",
     "@mdx-js/react": "^1.5.1",
     "@newfrontdoor/audio-player": "^0.1.6",
     "@newfrontdoor/calendar": "^2.2.0",
+    "@newfrontdoor/sanity-block-components": "^0.1.0",
     "@react-google-maps/api": "^1.8.0",
     "@sanity/block-content-to-react": "^2.0.7",
     "@sanity/client": "^0.147.0",

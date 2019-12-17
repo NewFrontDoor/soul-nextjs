@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import ky from 'ky-universal';
 import hostUrl from '../lib/host-url';
-import slider from '../public/main-grey-scale.png';
+import urlFor from '../utils/sanity-img';
 // Import Carousel from '../carousel/carousel';
 import segments from '../components/home-segments';
 import {fetchQuery} from '../lib/sanity';
@@ -46,18 +46,32 @@ function Wrapper({segment: {heading, description}, children}) {
 }
 
 function Home({mainData, menuData, sermonData, events}) {
-  const {content} = mainData;
+  const {content, hero} = mainData;
   return (
     <div>
       <HomeLayout menuData={menuData}>
         <section>
           <SliderWrapper>
-            <SliderImg
-              className="img-responsive img-full-width"
-              src={slider}
-              width="1440"
-              height="600"
-            />
+            <picture>
+              <source
+                srcSet={`${urlFor(hero)
+                  .height(600)
+                  .width(1440)
+                  .format('webp')
+                  .fit('max')
+                  .url()}&sat=-100`}
+                type="image/webp"
+              />
+              <SliderImg
+                className="img-responsive img-full-width"
+                src={`${urlFor(hero)
+                  .height(600)
+                  .width(1440)
+                  .format('jpg')
+                  .fit('max')
+                  .url()}&sat=-100`}
+              />
+            </picture>
           </SliderWrapper>
           <Section>
             {content.map(segment => {
@@ -129,11 +143,11 @@ const sermonQuery = `
   } | order(preachedDate desc)
   `;
 
-const soulApi = ky.create({
-  prefixUrl: hostUrl
-});
+Home.getInitialProps = async ({req}) => {
+  const soulApi = ky.create({
+    prefixUrl: hostUrl(req)
+  });
 
-Home.getInitialProps = async () => {
   const results = await fetchQuery(
     `{
         "mainData": ${mainQuery},

@@ -3,53 +3,80 @@ import BlockContent from '@sanity/block-content-to-react';
 import {Heading} from '@theme-ui/components';
 import {Styled, jsx} from 'theme-ui';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
+import {
+  Card,
+  HorizontalCard,
+  Overlay,
+  TextCard
+} from '@newfrontdoor/sanity-block-components';
 import Form from '../components/form';
 import GridBlock from '../components/grid-block';
-import Card from '../components/card-grid-item';
-import Overlay from '../components/overlay-grid-item';
-import HorizontalCard from '../components/horizontal-card-grid-item';
-import TextCard from '../components/text-card-grid-item';
+// Import Card from '../components/card-grid-item';
+// import Overlay from '../components/overlay-grid-item';
+// import HorizontalCard from '../components/horizontal-card-grid-item';
+// import TextCard from '../components/text-card-grid-item';
 import urlFor from './sanity-img';
 
+const LinkComponent = ({url, children}) => {
+  return (
+    <Link href={`/[${url.type}]`} as={`/${url.url}`}>
+      <a>{children}</a>
+    </Link>
+  );
+};
+
 function GridBlockSerializer({node: {blocks, columns, style}}) {
+  console.log(blocks);
   const segments = data => ({
     card: (
       <Card
         {...data}
-        description={<SanityBlock blocks={data.description} />}
-        image={urlFor(data.image)
+        description={
+          data.description ? <SanityBlock blocks={data.description} /> : <div />
+        }
+        image={urlFor(data.mainImage)
           .width(200)
           .height(200)
           .auto('format')
           .url()}
+        LinkComponent={LinkComponent}
       />
     ),
     overlay: (
       <Overlay
         {...data}
-        description={<SanityBlock blocks={data.description} />}
-        image={urlFor(data.image)
+        description={
+          data.description ? <SanityBlock blocks={data.description} /> : <div />
+        }
+        image={urlFor(data.mainImage)
           .width(350)
           .height(350)
           .auto('format')
           .url()}
+        LinkComponent={LinkComponent}
       />
     ),
     horizontal: (
       <HorizontalCard
         {...data}
-        description={<SanityBlock blocks={data.description} />}
-        image={urlFor(data.image)
+        description={
+          data.description ? <SanityBlock blocks={data.description} /> : <div />
+        }
+        image={urlFor(data.mainImage)
           .width(530)
           .height(135)
           .auto('format')
           .url()}
+        LinkComponent={LinkComponent}
       />
     ),
     text: (
       <TextCard
         {...data}
-        description={<SanityBlock blocks={data.description} />}
+        description={
+          data.description ? <SanityBlock blocks={data.description} /> : <div />
+        }
       />
     )
   });
@@ -71,6 +98,14 @@ function GridBlockSerializer({node: {blocks, columns, style}}) {
   );
 }
 
+GridBlockSerializer.propTypes = {
+  node: PropTypes.shape({
+    style: PropTypes.string.isRequired,
+    blocks: PropTypes.object.isRequired,
+    columns: PropTypes.array.isRequired
+  }).isRequired
+};
+
 const CustomLinkSerializer = ({mark, children}) => {
   if (mark.href.includes('#')) {
     return (
@@ -87,12 +122,22 @@ const CustomLinkSerializer = ({mark, children}) => {
   );
 };
 
+CustomLinkSerializer.propTypes = {
+  children: PropTypes.element.isRequired,
+  mark: PropTypes.object.isRequired
+};
+
 const InternalLinkSerializer = ({mark, children}) => {
   return (
     <Link passHref href={mark.slug}>
       <Styled.a>{children}</Styled.a>
     </Link>
   );
+};
+
+InternalLinkSerializer.propTypes = {
+  children: PropTypes.element.isRequired,
+  mark: PropTypes.object.isRequired
 };
 
 const CustomStyleSerializer = ({node, children}) => {
@@ -117,6 +162,13 @@ const CustomStyleSerializer = ({node, children}) => {
   }
 };
 
+CustomStyleSerializer.propTypes = {
+  children: PropTypes.element.isRequired,
+  node: PropTypes.shape({
+    style: PropTypes.string
+  }).isRequired
+};
+
 function FormSerializer({node: {title, id, body, fields}}) {
   return (
     <Form
@@ -129,6 +181,15 @@ function FormSerializer({node: {title, id, body, fields}}) {
   );
 }
 
+FormSerializer.propTypes = {
+  node: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    body: PropTypes.object.isRequired,
+    fields: PropTypes.array.isRequired
+  }).isRequired
+};
+
 function ListSerializer({type, children}) {
   return type === 'bullet' ? (
     <Styled.ul>{children}</Styled.ul>
@@ -137,9 +198,18 @@ function ListSerializer({type, children}) {
   );
 }
 
+ListSerializer.propTypes = {
+  children: PropTypes.element.isRequired,
+  type: PropTypes.string.isRequired
+};
+
 function ListItemSerializer({children}) {
   return <Styled.li>{children}</Styled.li>;
 }
+
+ListItemSerializer.propTypes = {
+  children: PropTypes.element.isRequired
+};
 
 const serializers = {
   types: {
@@ -159,3 +229,7 @@ const serializers = {
 export default function SanityBlock({blocks}) {
   return <BlockContent blocks={blocks} serializers={serializers} />;
 }
+
+SanityBlock.propTypes = {
+  blocks: PropTypes.object.isRequired
+};

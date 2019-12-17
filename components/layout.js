@@ -26,6 +26,8 @@ const CoverImage = styled('div')`
 
 const InnerImg = styled('img')`
   object-fit: cover;
+  width: 100%;
+  height: 100%;
   object-position: 0 0;
 `;
 
@@ -45,10 +47,12 @@ const icons = {
   map: <Map />
 };
 
-export default function Layout({menuData, children, mainData, defaultImage}) {
+export default function Layout({menuData, children, mainData}) {
   const router = useRouter();
   const {slug} = router.query;
   const {mainImage, cta, title} = mainData;
+
+console.log(mainImage)
 
   return (
     <div>
@@ -60,16 +64,25 @@ export default function Layout({menuData, children, mainData, defaultImage}) {
         {slug !== 'null' ? (
           <React.Fragment>
             <CoverImage img={mainImage}>
-              <InnerImg
-                src={
-                  urlFor(mainImage)
+              <picture>
+                <source
+                  srcSet={urlFor(mainImage)
                     .height(250)
                     .width(1400)
                     .format('webp')
                     .fit('max')
-                    .url() || defaultImage
-                }
-              />
+                    .url()}
+                  type="image/webp"
+                />
+                <InnerImg
+                  src={urlFor(mainImage)
+                    .height(250)
+                    .width(1400)
+                    .format('jpg')
+                    .fit('max')
+                    .url()}
+                />
+              </picture>
             </CoverImage>
             <Flex sx={{backgroundColor: 'banner'}}>
               <Styled.h1 sx={{fontWeight: 'body', margin: '0'}}>
@@ -99,7 +112,6 @@ export default function Layout({menuData, children, mainData, defaultImage}) {
 
 Layout.propTypes = {
   children: PropTypes.element.isRequired,
-  defaultImage: PropTypes.string.isRequired,
   mainData: PropTypes.object.isRequired,
   menuData: PropTypes.object.isRequired
 };

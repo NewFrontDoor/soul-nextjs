@@ -14,24 +14,24 @@ const Wrapper = styled('section')`
 
 const regex = /^(?!www\.|(?:http|ftp)s?:\/\/|[A-Za-z]:\\|\/\/).*/;
 
-export default function HorizontalCard({header, description, image, link}) {
+export default function HorizontalCard({title, description, image, link}) {
   return (
     <Wrapper>
       {!link ? (
-        <img src={image} alt={header} />
+        <img src={image} alt={title} />
       ) : regex.test(link) ? (
         <Link href={`/${link}`}>
           <a>
-            <img src={image} alt={header} />
+            <img src={image} alt={title} />
           </a>
         </Link>
       ) : (
         <a href={link}>
-          <img src={image} alt={header} />
+          <img src={image} alt={title} />
         </a>
       )}
       <div>
-        <Styled.h3>{header}</Styled.h3>
+        <Styled.h3>{title}</Styled.h3>
         {description}
       </div>
     </Wrapper>
@@ -40,7 +40,7 @@ export default function HorizontalCard({header, description, image, link}) {
 
 HorizontalCard.propTypes = {
   description: PropTypes.element.isRequired,
-  header: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   link: PropTypes.string
 };

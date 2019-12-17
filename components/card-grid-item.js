@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import {css, jsx} from '@emotion/core';
+import {css} from '@emotion/core';
 import styled from '@emotion/styled';
 import Link from 'next/link';
-import {Styled} from 'theme-ui';
+import {Styled, jsx} from 'theme-ui';
 import PropTypes from 'prop-types';
 
 const Actions = styled('section')`
@@ -67,7 +67,7 @@ function ExternalLink({url, children}) {
 
 const regex = /^(?!www\.|(?:http|ftp)s?:\/\/|[A-Za-z]:\\|\/\/).*/;
 
-export default function Card({header, description, image, link, action}) {
+export default function Card({title, description, image, link, action}) {
   return (
     <div>
       {regex.test(link) ? (
@@ -76,9 +76,9 @@ export default function Card({header, description, image, link, action}) {
             <img
               sx={{gridColumn: '1/1', width: '100%'}}
               src={image}
-              alt={header}
+              alt={title}
             />
-            <Header>{header}</Header>
+            <Header>{title}</Header>
           </Styled.a>
         </Link>
       ) : (
@@ -86,9 +86,9 @@ export default function Card({header, description, image, link, action}) {
           <img
             sx={{gridColumn: '1/1', width: '100%'}}
             src={image}
-            alt={header}
+            alt={title}
           />
-          <Header>{header}</Header>
+          <Header>{title}</Header>
         </Styled.a>
       )}
       {description}
@@ -112,7 +112,7 @@ export default function Card({header, description, image, link, action}) {
 Card.propTypes = {
   action: PropTypes.string.isRequired,
   description: PropTypes.element.isRequired,
-  header: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   link: PropTypes.string.isRequired
 };

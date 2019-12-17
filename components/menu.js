@@ -71,7 +71,7 @@ export default function Menu({items, isVisible}) {
 
         return item.childpages.length <= 1 ? (
           <ListItem key={item.subtext}>
-            <Link passHref href={`/${item.childpages[0].slug.current}`}>
+            <Link href="/[slug]" as={`/${item.childpages[0].slug.current}`}>
               <a sx={{variant: 'links.nav'}}>
                 <Text variant="menu">{item.title}</Text>
                 <Text variant="subtext">{item.subtext}</Text>
@@ -80,7 +80,7 @@ export default function Menu({items, isVisible}) {
           </ListItem>
         ) : (
           <ListItem key={item.subtext}>
-            <Link passHref href={'/' + item.childpages[0].slug.current}>
+            <Link href="/[slug]" as={`/${item.childpages[0].slug.current}`}>
               <a sx={{variant: 'links.nav'}}>
                 <Text variant="menu">{item.title}</Text>
                 <Text variant="subtext">{item.subtext}</Text>
@@ -93,7 +93,7 @@ export default function Menu({items, isVisible}) {
                     key={child.slug.current + child.title}
                     sx={{paddingBottom: '0.5rem'}}
                   >
-                    <Link href={child.slug.current}>
+                    <Link href="[slug]" as={`/${child.slug.current}`}>
                       <a>{child.title}</a>
                     </Link>
                   </li>

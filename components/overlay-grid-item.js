@@ -32,18 +32,18 @@ const Wrapper = styled.a`
   text-decoration: none;
 `;
 
-export default function Overlay({header, image, link}) {
+export default function Overlay({title, image, link}) {
   return (
     <Wrapper href={link}>
-      <Image src={image} alt={header} />
+      <Image src={image} alt={title} />
       <ShadedOverlay />
-      <Header>{header}</Header>
+      <Header>{title}</Header>
     </Wrapper>
   );
 }
 
 Overlay.propTypes = {
-  header: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   link: PropTypes.string.isRequired
 };

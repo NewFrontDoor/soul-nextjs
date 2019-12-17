@@ -1,9 +1,9 @@
 import React from 'react';
 import {Container} from '@theme-ui/components';
 import PropTypes from 'prop-types';
-import {fetchQuery} from '../lib/sanity';
-import SanityBlock from '../utils/block-text-serializer';
-import Layout from '../components/layout';
+import {fetchQuery} from '../../lib/sanity';
+import SanityBlock from '../../utils/block-text-serializer';
+import Layout from '../../components/layout';
 
 const menuQuery = `
 *[_type == "main"][0] {
@@ -44,27 +44,16 @@ Page.getInitialProps = async ({query}) => {
         ...,
         _type == 'reference' => @-> {
           ...,
-          "blocks": [
-            ...blocks[_type == 'reference']->{
-              key,
+          blocks[] {
+            ...,
+            _type == 'reference' => @ -> {
               title,
-              "description": preview[_type != 'reference'],
+              "description": body[_type != 'reference'],
               mainImage,
-              "link": {
-                "type": "slug",
-                "url": slug.current
-              },
+              "link": slug.current
             },
-            ...blocks[_type == 'griditem']{
-              key,
-              title,
-              description,
-              mainImage,
-              "link": {
-                "url": link
-              }
-            }
-          ]
+            "_type": "griditem"
+          }
         },
         markDefs[] {
           ...,
