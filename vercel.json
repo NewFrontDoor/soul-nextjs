@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "env": {
+    "SOUL_ELVANTO_TOKEN": "@SOUL_ELVANTO_TOKEN"
+  }
+}

@@ -6,12 +6,13 @@ const pipeline = promisify(stream.pipeline);
 
 const elvantoApi = got.extend({
   headers: {
-    authorization: `Basic ${process.env.ELVANTO_TOKEN}`
+    Authorization: `"Basic ${process.env.SOUL_ELVANTO_TOKEN}"`,
+    'Content-Type': 'application/json'
   },
   prefixUrl: 'https://api.elvanto.com/v1'
 });
 
-async function Endpoint(req, res) {
+export default async (req, res) => {
   const now = new Date();
   const query = {
     page: 1,
@@ -34,6 +35,4 @@ async function Endpoint(req, res) {
     }),
     res
   );
-}
-
-export default Endpoint;
+};
