@@ -12,17 +12,17 @@ import {
 } from '@newfrontdoor/sanity-block-components';
 import Form from '../components/form';
 import GridBlock from '../components/grid-block';
-// Import Card from '../components/card-grid-item';
-// import Overlay from '../components/overlay-grid-item';
-// import HorizontalCard from '../components/horizontal-card-grid-item';
-// import TextCard from '../components/text-card-grid-item';
 import urlFor from './sanity-img';
 
-const LinkComponent = ({url, children}) => {
-  return (
+const passedLink = ({url, children, sx}) => {
+  return url.type ? (
     <Link href={`/[${url.type}]`} as={`/${url.url}`}>
-      <a>{children}</a>
+      <a sx={{display: 'contents'}}>{children}</a>
     </Link>
+  ) : (
+    <a sx={{display: 'contents'}} href={url.url}>
+      {children}
+    </a>
   );
 };
 
@@ -40,7 +40,7 @@ function GridBlockSerializer({node: {blocks, columns, style}}) {
           .height(200)
           .auto('format')
           .url()}
-        LinkComponent={LinkComponent}
+        LinkComponent={passedLink}
       />
     ),
     overlay: (
@@ -54,7 +54,7 @@ function GridBlockSerializer({node: {blocks, columns, style}}) {
           .height(350)
           .auto('format')
           .url()}
-        LinkComponent={LinkComponent}
+        LinkComponent={passedLink}
       />
     ),
     horizontal: (
@@ -68,7 +68,7 @@ function GridBlockSerializer({node: {blocks, columns, style}}) {
           .height(135)
           .auto('format')
           .url()}
-        LinkComponent={LinkComponent}
+        LinkComponent={passedLink}
       />
     ),
     text: (

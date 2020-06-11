@@ -28,6 +28,7 @@ const Section = styled('section')`
   grid-template-columns: 1fr;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 40px;
   max-width: 85vw;
   @media (min-width: 770px) {
     max-width: 1170px;
@@ -39,7 +40,7 @@ function Wrapper({segment: {heading, description}, children}) {
   return (
     <section>
       <Styled.h2 sx={{mb: 10}}>{heading}</Styled.h2>
-      <Styled.h4>{description}</Styled.h4>
+      <Styled.h4 sx={{mt: 10}}>{description}</Styled.h4>
       {children}
     </section>
   );
@@ -49,7 +50,7 @@ function Home({mainData, menuData, sermonData, events}) {
   const {content, hero} = mainData;
   return (
     <div>
-      <HomeLayout menuData={menuData}>
+      <HomeLayout menuData={menuData} mainData={mainData}>
         <section>
           <SliderWrapper>
             <picture>
@@ -110,7 +111,8 @@ const mainQuery = `
     type,
     _key
   },
-	hero
+  hero,
+  seo
 }
 `;
 
@@ -129,7 +131,7 @@ const menuQuery = `
 `;
 
 const sermonQuery = `
-  *[_type == "sermons"] {
+  *[_type == "sermon"] {
     "key": _id,
     title,
     _id,
@@ -138,7 +140,7 @@ const sermonQuery = `
     "series": series->title,
     passage,
     "image": series->image,
-    "url": "https://s3.us-west-2.amazonaws.com/sermons.onewaymargate.org/" + file,
+    "url": "https://s3-ap-southeast-2.amazonaws.com/sermons.soulchurch.org.au/" + file,
     "slug": slug.current
   } | order(preachedDate desc)
   `;

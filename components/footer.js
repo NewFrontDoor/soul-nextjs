@@ -9,14 +9,14 @@ import {
 } from 'react-icons/io';
 import {FaRegPlayCircle} from 'react-icons/fa';
 import {jsx, Styled, useThemeUI} from 'theme-ui';
+import {Link} from '@theme-ui/components';
 
 const Grid = styled('div')`
   display: grid;
   height: 220px;
   grid-template-columns: repeat(3, 1fr);
   grid-template-areas: 'footer-left footer-centre footer-right';
-  color: #f0f0f0;
-  background-color: #2b2b2b;
+  background-color: ${props => props.background};
   padding: 40px 7.5vw 0 7.5vw;
 `;
 
@@ -32,8 +32,8 @@ const MetaGrid = styled('div')`
 export default function Footer() {
   const {theme} = useThemeUI();
   return (
-    <section>
-      <Grid>
+    <section sx={{color: theme.colors.accent}}>
+      <Grid background={theme.colors.text}>
         <div sx={{textAlign: 'center'}}>
           <IoIosPin
             style={{
@@ -46,10 +46,10 @@ export default function Footer() {
             }}
           />
           <Styled.p>
-            <Styled.a href="#">Sundays @ 4.30pm</Styled.a> - 5 Lefroy Street,
+            <Link href="#" variant='footer'>Sundays @ 4.30pm</Link> - 5 Lefroy Street,
             North Hobart
             <br />
-            <Styled.a href="#">Office</Styled.a> - 67 Federal Street, North
+            <Link href="#" variant='footer'>Office</Link> - 67 Federal Street, North
             Hobart
           </Styled.p>
         </div>
@@ -65,13 +65,13 @@ export default function Footer() {
             }}
           />
           <Styled.p>
-            <Styled.a href="mailto:info@soulchurch.org.au">
+            <Link href="mailto:info@soulchurch.org.au" variant='footer'>
               info@soulchurch.org.au
-            </Styled.a>
+            </Link>
             <br />
-            <Styled.a href="mailto:elders@soulchurch.org.au">
+            <Link href="mailto:elders@soulchurch.org.au" variant='footer'>
               elders@soulchurch.org.au
-            </Styled.a>
+            </Link>
           </Styled.p>
         </div>
         <div sx={{textAlign: 'center'}}>
@@ -79,7 +79,7 @@ export default function Footer() {
             style={{
               stroke: 'none',
               strokeWidth: '20px',
-              fill: theme.colors.accent,
+              fill: theme.colors.background,
               width: '2em',
               height: '2em',
               marginBottom: '20px'
@@ -89,7 +89,7 @@ export default function Footer() {
             style={{
               stroke: 'none',
               strokeWidth: '20px',
-              fill: theme.colors.accent,
+              fill: theme.colors.background,
               width: '2em',
               height: '2em',
               marginBottom: '20px',
@@ -100,7 +100,7 @@ export default function Footer() {
             style={{
               stroke: 'none',
               strokeWidth: '20px',
-              fill: theme.colors.accent,
+              fill: theme.colors.background,
               width: '2em',
               height: '2em',
               marginBottom: '20px',
@@ -108,29 +108,32 @@ export default function Footer() {
             }}
           />
           <Styled.p>
-            <Styled.a
+            <Link
               href="https://www.instagram.com/soul_church/"
               target="_blank"
               rel="noopener noreferrer"
+              variant='footer'
             >
               @soul_church
-            </Styled.a>
+            </Link>
             <br />
-            <Styled.a
+            <Link
               href="http://facebook.com/soulchurch"
               target="_blank"
               rel="noopener noreferrer"
+              variant='footer'
             >
               facebook.com/SoulChurch
-            </Styled.a>
+            </Link>
             <br />
-            <Styled.a
+            <Link
               href="https://podcasts.apple.com/us/podcast/soul-church/id1389648314"
               target="_blank"
               rel="noopener noreferrer"
+              variant='footer'
             >
               Subscribe to our podcast
-            </Styled.a>
+            </Link>
             <br />
           </Styled.p>
         </div>
@@ -139,19 +142,19 @@ export default function Footer() {
         <div>
           <Styled.p>
             Website built and maintained by{' '}
-            <Styled.a href="http://newfrontdoor.org">New Front Door</Styled.a>
+            <Link href="http://newfrontdoor.org" variant='footer'>New Front Door</Link>
           </Styled.p>
         </div>
         <div sx={{textAlign: 'right'}}>
-          <Styled.a href="https://www.facebook.com/NewFrontDoorIT/">
-            <IoLogoFacebook style={{fill: theme.colors.accent}} />
-          </Styled.a>
-          <Styled.a href="https://twitter.com/NewFrontDoorIT">
-            <IoLogoTwitter style={{fill: theme.colors.accent}} />
-          </Styled.a>
-          <Styled.a href="mailto:contactus@newfrontdoor.org">
-            <IoIosMail style={{fill: theme.colors.accent}} />
-          </Styled.a>
+          <Link href="https://www.facebook.com/NewFrontDoorIT/" variant='footer'>
+            <IoLogoFacebook />
+          </Link>
+          <Link href="https://twitter.com/NewFrontDoorIT" variant='footer'>
+            <IoLogoTwitter />
+          </Link>
+          <Link href="mailto:contactus@newfrontdoor.org" variant='footer'>
+            <IoIosMail />
+          </Link>
         </div>
       </MetaGrid>
     </section>

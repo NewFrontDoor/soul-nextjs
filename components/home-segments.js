@@ -72,7 +72,7 @@ function Wrapper({segment: {heading, description}, children}) {
   return (
     <section>
       <Styled.h2 sx={{mb: 10}}>{heading}</Styled.h2>
-      <Styled.h4>{description}</Styled.h4>
+      <Styled.h4 sx={{mt: 16}}>{description}</Styled.h4>
       {children}
     </section>
   );

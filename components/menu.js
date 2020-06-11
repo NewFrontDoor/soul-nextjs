@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {jsx} from 'theme-ui';
 import styled from '@emotion/styled';
 import Link from 'next/link';
-import {Text} from '@theme-ui/components';
+import {Text, Link as UILink} from '@theme-ui/components';
 
 const List = styled('ul')`
   margin: 0;
@@ -13,7 +13,7 @@ const List = styled('ul')`
   @media (min-width: 770px) {
     display: flex;
   }
-  li {
+  & > li {
     padding-right: 30px;
     align-self: center;
   }
@@ -22,7 +22,7 @@ const List = styled('ul')`
 const ListItem = styled('li')`
   position: relative;
   line-height: 1.6;
-  transition-duration: 0.5s;
+  transition: all 0.5s ease;
   &:hover > ul,
   ul li ul:hover {
     visibility: visible;
@@ -47,14 +47,13 @@ const Submenu = styled('ul')`
   padding-left: 0;
   visibility: hidden;
   opacity: 0;
+  width: 150%;
   min-width: 5rem;
   position: absolute;
   transition: all 0.5s ease;
-  margin-top: 1rem;
   left: 0;
   display: none;
-  color: #444446;
-  padding: 0.75em 0.5em 0.75em 0.625em;
+  padding: 0.75em 0;
   border-radius: 0.3125em;
   background-color: white;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
@@ -62,6 +61,7 @@ const Submenu = styled('ul')`
 
 export default function Menu({items, isVisible}) {
   const [openMenu, updateOpenMenu] = useState(null);
+
   return (
     <List isVisible={isVisible ? 'block' : 'none'}>
       {items.map(item => {
@@ -72,29 +72,29 @@ export default function Menu({items, isVisible}) {
         return item.childpages.length <= 1 ? (
           <ListItem key={item.subtext}>
             <Link href="/[slug]" as={`/${item.childpages[0].slug.current}`}>
-              <a sx={{variant: 'links.nav'}}>
+              <UILink variant="nav">
                 <Text variant="menu">{item.title}</Text>
                 <Text variant="subtext">{item.subtext}</Text>
-              </a>
+              </UILink>
             </Link>
           </ListItem>
         ) : (
           <ListItem key={item.subtext}>
             <Link href="/[slug]" as={`/${item.childpages[0].slug.current}`}>
-              <a sx={{variant: 'links.nav'}}>
+              <UILink variant="nav">
                 <Text variant="menu">{item.title}</Text>
                 <Text variant="subtext">{item.subtext}</Text>
-              </a>
+              </UILink>
             </Link>
             <Submenu>
               {item.childpages.map(child => {
                 return (
                   <li
                     key={child.slug.current + child.title}
-                    sx={{paddingBottom: '0.5rem'}}
+                    sx={{padding: '0.25rem 0'}}
                   >
                     <Link href="[slug]" as={`/${child.slug.current}`}>
-                      <a>{child.title}</a>
+                      <UILink variant="subnav">{child.title}</UILink>
                     </Link>
                   </li>
                 );

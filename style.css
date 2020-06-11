@@ -1,1 +1,10 @@
 @import "./node_modules/normalize.css/normalize.css";
+
+@font-face {
+  font-family: "Eurostile";
+  src: url("/EurostileRegular.woff2") format("woff2"),
+    url("/EurostileRegular.woff") format("woff"),
+    url("/Eurostile.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}

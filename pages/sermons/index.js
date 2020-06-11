@@ -38,7 +38,7 @@ Page.propTypes = {
 
 Page.getInitialProps = async () => {
   const pageQuery = `
-    *[_type == "page" && 'sermons' match slug.current][0] {
+    *[_type == "page" && 'sermon' match slug.current][0] {
       ...,
       body[]{
         ...,
