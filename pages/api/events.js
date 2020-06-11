@@ -6,7 +6,7 @@ const pipeline = promisify(stream.pipeline);
 
 const elvantoApi = got.extend({
   headers: {
-    Authorization: `Basic ${process.env.SOUL_ELVANTO_TOKEN}`,
+    Authorization: `Basic ${Buffer.from(`${process.env.SOUL_ELVANTO_TOKEN}:`).toString("base64")}`,
     'Content-Type': 'application/json'
   },
   prefixUrl: 'https://api.elvanto.com/v1'
@@ -28,6 +28,8 @@ export default async (req, res) => {
       'feb96937-7310-47db-a4f1-50d58753f9ad'
     ]
   };
+
+  console.info(elvantoApi.defaults.options.headers);
 
   await pipeline(
     elvantoApi.stream.post('calendar/events/getAll.json', {
