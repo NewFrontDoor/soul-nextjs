@@ -2,7 +2,7 @@
 import {jsx, Styled} from 'theme-ui';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import {StyledPlayer} from '@newfrontdoor/audio-player';
+import {AudioPlayer} from '@newfrontdoor/audio-player';
 import urlFor from '../utils/sanity-img';
 import GoogleMap from './models/google-map';
 import UpcomingEvent from './models/upcoming-event';
@@ -49,7 +49,7 @@ function Sermon({sermonData}) {
         </Styled.a>
       </Link>
       <Styled.h5>{passage}</Styled.h5>
-      <StyledPlayer
+      <AudioPlayer
         hasPlaybackspeed
         audio={url}
         hasBorder={false}
