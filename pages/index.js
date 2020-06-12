@@ -2,7 +2,7 @@
 import {jsx, Styled} from 'theme-ui';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import ky from 'ky-universal';
+//import ky from 'ky-universal';
 import hostUrl from '../lib/host-url';
 import urlFor from '../utils/sanity-img';
 // Import Carousel from '../carousel/carousel';
@@ -146,10 +146,6 @@ const sermonQuery = `
   `;
 
 Home.getInitialProps = async ({req}) => {
-  const soulApi = ky.create({
-    prefixUrl: hostUrl(req)
-  });
-
   const results = await fetchQuery(
     `{
         "mainData": ${mainQuery},
@@ -157,9 +153,7 @@ Home.getInitialProps = async ({req}) => {
         "sermonData": ${sermonQuery}
     }`
   );
-  const {
-    events: {event}
-  } = await soulApi('api/events').json();
+  const {events: {event}} = await fetch(new URL('api/events', hostUrl(req))).then(response => response.json());
   results.events = event;
 
   return results;
