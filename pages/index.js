@@ -55,22 +55,22 @@ function Home({mainData, menuData, sermonData, events}) {
           <SliderWrapper>
             <picture>
               <source
-                srcSet={`${urlFor(hero)
+                srcSet={urlFor(hero)
                   .height(600)
                   .width(1440)
                   .format('webp')
                   .fit('max')
-                  .url()}&sat=-100`}
+                  .url()}
                 type="image/webp"
               />
               <SliderImg
                 className="img-responsive img-full-width"
-                src={`${urlFor(hero)
+                src={urlFor(hero)
                   .height(600)
                   .width(1440)
-                  .format('jpg')
+                  .format('webp')
                   .fit('max')
-                  .url()}&sat=-100`}
+                  .url()}
               />
             </picture>
           </SliderWrapper>
