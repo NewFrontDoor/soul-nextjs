@@ -29,8 +29,6 @@ export default async (req, res) => {
     ]
   };
 
-  console.info(elvantoApi.defaults.options.headers);
-
   await pipeline(
     elvantoApi.stream.post('calendar/events/getAll.json', {
       json: query

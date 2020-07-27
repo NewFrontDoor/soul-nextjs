@@ -27,7 +27,6 @@ const passedLink = ({url, children, sx}) => {
 };
 
 function GridBlockSerializer({node: {blocks, columns, style}}) {
-  console.log(blocks);
   const segments = data => ({
     card: (
       <Card

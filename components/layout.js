@@ -49,7 +49,6 @@ const icons = {
 
 export default function Layout({menuData, children, mainData}) {
   const router = useRouter();
-  console.log(router);
   const {slug} = router.query;
   const {mainImage, cta, title, seo} = mainData;
   return (
