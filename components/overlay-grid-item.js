@@ -32,7 +32,7 @@ const Wrapper = styled.a`
   text-decoration: none;
 `;
 
-export default function Overlay({title, image, link}) {
+const Overlay = ({title, image, link}) => {
   return (
     <Wrapper href={link}>
       <Image src={image} alt={title} />
@@ -40,7 +40,9 @@ export default function Overlay({title, image, link}) {
       <Header>{title}</Header>
     </Wrapper>
   );
-}
+};
+
+export default Overlay;
 
 Overlay.propTypes = {
   title: PropTypes.string.isRequired,

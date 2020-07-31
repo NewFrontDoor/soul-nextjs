@@ -4,9 +4,9 @@ import styled from '@emotion/styled';
 import {Styled} from 'theme-ui';
 import {postToWebform} from '../../utils/post-to-api';
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const onSubmit = async values => {
+const onSubmit = async (values) => {
   const form = new FormData();
   form.append('webform', 'uuid');
   form.append(
@@ -39,7 +39,7 @@ const onSubmit = async values => {
   );
   await sleep(300);
 
-  postToWebform(form, data => {
+  postToWebform(form, (data) => {
     console.log('submitted');
   });
 
@@ -48,7 +48,7 @@ const onSubmit = async values => {
   );
 };
 
-const required = value => (value ? undefined : 'Required');
+const required = (value) => (value ? undefined : 'Required');
 
 const Input = styled.input`
   display: block;
@@ -66,7 +66,7 @@ const Input = styled.input`
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 `;
 
-const Req = styled.span`
+const Request_ = styled.span`
   color: red;
 `;
 
@@ -79,7 +79,7 @@ const FormGroup = styled.div`
   }
 `;
 
-export default function ContactForm() {
+const ContactForm = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   return (
     <section>
@@ -89,7 +89,11 @@ export default function ContactForm() {
           paddingBottom: '40px'
         }}
       >
-        {!formSubmitted ? (
+        {formSubmitted ? (
+          <Styled.p>
+            Thank you for contact us we will get back to you soon.
+          </Styled.p>
+        ) : (
           <Form
             render={({handleSubmit, submitting, pristine}) => (
               <form onSubmit={handleSubmit}>
@@ -186,12 +190,10 @@ export default function ContactForm() {
             )}
             onSubmit={onSubmit}
           />
-        ) : (
-          <Styled.p>
-            Thank you for contact us we will get back to you soon.
-          </Styled.p>
         )}
       </div>
     </section>
   );
-}
+};
+
+export default ContactForm;

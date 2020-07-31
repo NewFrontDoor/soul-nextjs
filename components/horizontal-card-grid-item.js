@@ -14,7 +14,7 @@ const Wrapper = styled('section')`
 
 const regex = /^(?!www\.|(?:http|ftp)s?:\/\/|[A-Za-z]:\\|\/\/).*/;
 
-export default function HorizontalCard({title, description, image, link}) {
+const HorizontalCard = ({title, description, image, link}) => {
   return (
     <Wrapper>
       {!link ? (
@@ -36,7 +36,9 @@ export default function HorizontalCard({title, description, image, link}) {
       </div>
     </Wrapper>
   );
-}
+};
+
+export default HorizontalCard;
 
 HorizontalCard.propTypes = {
   description: PropTypes.element.isRequired,

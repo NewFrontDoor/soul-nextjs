@@ -54,7 +54,7 @@ function getFormField(field) {
         <div>
           <Label htmlFor={field.id}>{field.label}</Label>
           <Select id={field.id} name={field.label}>
-            {field.values.map(value => (
+            {field.values.map((value) => (
               <option value={value}>{value}</option>
             ))}
           </Select>
@@ -64,7 +64,7 @@ function getFormField(field) {
       return (
         <RadioGroup>
           <legend>{field.label}</legend>
-          {field.values.map(value => (
+          {field.values.map((value) => (
             <Label key={field.id}>
               <Radio id={value} name={field.id} value={value} />
               {value}
@@ -94,14 +94,14 @@ function getFormField(field) {
   }
 }
 
-export default function Form({title, id, description, fields}) {
+const Form = ({title, id, description, fields}) => {
   return (
     <form id={id}>
       <fieldset sx={{border: 'none'}}>
         {title && <Styled.h2>{title}</Styled.h2>}
         {description && description}
         <Grid>
-          {fields.map(field => {
+          {fields.map((field) => {
             return getFormField(field);
           })}
           <Button sx={{gridColumn: '1 / 3'}} type="submit">
@@ -111,7 +111,9 @@ export default function Form({title, id, description, fields}) {
       </fieldset>
     </form>
   );
-}
+};
+
+export default Form;
 
 Form.propTypes = {
   title: PropTypes.string,

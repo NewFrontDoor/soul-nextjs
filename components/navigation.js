@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, {useState} from 'react';
+import {useState} from 'react';
 import styled from '@emotion/styled';
 import {jsx} from 'theme-ui';
 import Link from 'next/link';
@@ -14,7 +14,7 @@ const Header = styled('header')`
   margin-right: auto;
   justify-content: space-around;
   flex-wrap: wrap;
-  background-color: ${props => props.theme.colors.primary};
+  background-color: ${(props) => props.theme.colors.primary};
   align-items: flex-end;
   height: 130px;
 `;
@@ -36,11 +36,11 @@ const MenuButton = styled('button')`
   }
 `;
 
-export default function Navigation({menuData}) {
+const Navigation = ({menuData}) => {
   const [menuVisible, toggleMenuVisible] = useState(false);
   return (
     <Header theme={theme}>
-      <Link href="/" as="/" passHref>
+      <Link passHref href="/" as="/">
         <a sx={{flex: '0 1 auto', height: '110px'}}>
           <Logo sx={{height: '80px', fill: 'white', paddingBottom: '1rem'}} />
         </a>
@@ -55,4 +55,6 @@ export default function Navigation({menuData}) {
       />
     </Header>
   );
-}
+};
+
+export default Navigation;

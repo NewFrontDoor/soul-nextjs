@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {GoogleMap, LoadScript, Marker} from '@react-google-maps/api';
 import {mapsKey} from '../../lib/config';
 
-export default function Map({height, mapWidth, location}) {
+const Map = ({height, mapWidth, location}) => {
   return (
     <LoadScript id="script-loader" googleMapsApiKey={mapsKey}>
       <GoogleMap
@@ -30,7 +30,9 @@ export default function Map({height, mapWidth, location}) {
       </GoogleMap>
     </LoadScript>
   );
-}
+};
+
+export default Map;
 
 Map.propTypes = {
   location: PropTypes.object.isRequired,

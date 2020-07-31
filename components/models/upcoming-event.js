@@ -25,7 +25,7 @@ const StartDate = styled('div')`
   margin-left: 45px;
 `;
 
-export default function UpcomingEvent({title, startdate}) {
+const UpcomingEvent = ({title, startdate}) => {
   return (
     <EventWrapper>
       <Icon />
@@ -33,7 +33,9 @@ export default function UpcomingEvent({title, startdate}) {
       <StartDate>{startdate}</StartDate>
     </EventWrapper>
   );
-}
+};
+
+export default UpcomingEvent;
 
 UpcomingEvent.propTypes = {
   title: PropTypes.string.isRequired,

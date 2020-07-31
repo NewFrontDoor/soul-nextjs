@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {jsx} from 'theme-ui';
 import styled from '@emotion/styled';
 import Link from 'next/link';
@@ -9,7 +9,7 @@ const List = styled('ul')`
   margin: 0;
   margin-left: 100px;
   list-style: none;
-  display: ${props => props.isVisible};
+  display: ${(props) => props.isVisible};
   @media (min-width: 770px) {
     display: flex;
   }
@@ -59,12 +59,12 @@ const Submenu = styled('ul')`
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
 `;
 
-export default function Menu({items, isVisible}) {
+const Menu = ({items, isVisible}) => {
   const [openMenu, updateOpenMenu] = useState(null);
 
   return (
     <List isVisible={isVisible ? 'block' : 'none'}>
-      {items.map(item => {
+      {items.map((item) => {
         if (!item.childpages) {
           return null;
         }
@@ -87,7 +87,7 @@ export default function Menu({items, isVisible}) {
               </UILink>
             </Link>
             <Submenu>
-              {item.childpages.map(child => {
+              {item.childpages.map((child) => {
                 return (
                   <li
                     key={child.slug.current + child.title}
@@ -105,4 +105,6 @@ export default function Menu({items, isVisible}) {
       })}
     </List>
   );
-}
+};
+
+export default Menu;

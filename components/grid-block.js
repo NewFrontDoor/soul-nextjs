@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 
 const Grid = styled('div')`
   display: grid;
-  grid-template-columns: ${props => props.columns};
+  grid-template-columns: ${(props) => props.columns};
   grid-template-rows: auto;
-  gap: ${props => (props.gap ? props.gap : `5%`)};
+  gap: ${(props) => (props.gap ? props.gap : `5%`)};
   @media (min-width: 450px) and (max-width: 890px) {
-    grid-template-columns: ${props =>
+    grid-template-columns: ${(props) =>
       `repeat(${Math.round(props.columnRawValue / 2)}, 1fr)`};
   }
 `;
@@ -16,10 +16,11 @@ const Grid = styled('div')`
 const ItemOuter = styled('div')`
   display: grid;
   grid-template-columns: 1fr;
-  margin-bottom: ${props => (props.marginBottom ? props.marginBottom : `4em`)};
+  margin-bottom: ${(props) =>
+    props.marginBottom ? props.marginBottom : `4em`};
 `;
 
-export default function GridBlock({
+const GridBlock = ({
   items,
   columns,
   columnRawValue,
@@ -27,10 +28,10 @@ export default function GridBlock({
   gap,
   marginBottom,
   style
-}) {
+}) => {
   return (
     <Grid columns={columns} columnRawValue={columnRawValue} gap={gap}>
-      {items.map(item => {
+      {items.map((item) => {
         return (
           <ItemOuter key={item._id} marginBottom={marginBottom}>
             {renderProp(item, style)}
@@ -39,7 +40,9 @@ export default function GridBlock({
       })}
     </Grid>
   );
-}
+};
+
+export default GridBlock;
 
 GridBlock.propTypes = {
   columnRawValue: PropTypes.number.isRequired,

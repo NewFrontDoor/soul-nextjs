@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import {css} from '@emotion/core';
+import {css, jsx} from '@emotion/core';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import {Styled, jsx} from 'theme-ui';
@@ -21,7 +21,7 @@ const Actions = styled('section')`
   }
 `;
 
-const action = props => css`
+const action = (props) => css`
   text-decoration: none;
   padding: 10px 0;
   font-size: 0.8em;
@@ -49,25 +49,25 @@ const Header = styled(Styled.h3)`
   margin: 0.5em;
 `;
 
-function InternalLink({url, children}) {
+let InternalLink = ({url, children}) => {
   return (
     <Link passHref css={action} href={`/${url}`}>
       <Styled.a>{children}</Styled.a>
     </Link>
   );
-}
+};
 
-function ExternalLink({url, children}) {
+let ExternalLink = ({url, children}) => {
   return (
     <Styled.a css={action} href={`${url}`}>
       {children}
     </Styled.a>
   );
-}
+};
 
 const regex = /^(?!www\.|(?:http|ftp)s?:\/\/|[A-Za-z]:\\|\/\/).*/;
 
-export default function Card({title, description, image, link, action}) {
+let Card = ({title, description, image, link, action}) => {
   return (
     <div>
       {regex.test(link) ? (
@@ -107,7 +107,9 @@ export default function Card({title, description, image, link, action}) {
       )}
     </div>
   );
-}
+};
+
+export default Card;
 
 Card.propTypes = {
   action: PropTypes.string.isRequired,

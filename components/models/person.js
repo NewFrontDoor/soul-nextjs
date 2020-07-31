@@ -25,7 +25,7 @@ const Title = styled.p`
   text-align: center;
 `;
 
-export default function Person({image, name, title}) {
+const Person = ({image, name, title}) => {
   return (
     <div>
       <Img src={image} alt={name} />
@@ -33,7 +33,9 @@ export default function Person({image, name, title}) {
       <Title>{title}</Title>
     </div>
   );
-}
+};
+
+export default Person;
 
 Person.propTypes = {
   image: PropTypes.string.isRequired,
