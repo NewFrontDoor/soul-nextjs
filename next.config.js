@@ -1,7 +1,6 @@
 // Next.config.js
 const withPlugins = require('next-compose-plugins');
 const withImages = require('next-images');
-const withCSS = require('@zeit/next-css');
 const withFonts = require('next-fonts');
 
 const nextConfig = {
@@ -13,6 +12,6 @@ const nextConfig = {
 };
 
 module.exports = withPlugins(
-  [withFonts, [withImages, {ignoreTypes: ['svg']}], withCSS],
+  [withFonts, [withImages, {ignoreTypes: ['svg']}]],
   nextConfig
 );

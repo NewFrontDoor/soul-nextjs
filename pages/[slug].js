@@ -19,7 +19,7 @@ const menuQuery = `
 }
 `;
 
-function Page({menuData, mainData}) {
+const Page = ({menuData, mainData}) => {
   const {body} = mainData;
 
   return (
@@ -29,14 +29,14 @@ function Page({menuData, mainData}) {
       </Container>
     </Layout>
   );
-}
+};
 
 Page.propTypes = {
   menuData: PropTypes.object.isRequired,
   mainData: PropTypes.object.isRequired
 };
 
-Page.getInitialProps = async ({query}) => {
+export async function getServerSideProps({query}) {
   const pageQuery = `
     *[_type == "page" && '${query.slug}' match slug.current][0] {
       ...,
@@ -84,13 +84,13 @@ Page.getInitialProps = async ({query}) => {
       'id': _id,
     }
   `;
-  const results = await fetchQuery(
+  const props = await fetchQuery(
     `{
         "mainData": ${pageQuery},
         "menuData": ${menuQuery}
     }`
   );
-  return results;
-};
+  return {props};
+}
 
 export default Page;

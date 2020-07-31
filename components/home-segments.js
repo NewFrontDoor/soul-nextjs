@@ -2,26 +2,28 @@
 import {jsx, Styled} from 'theme-ui';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import {StyledPlayer} from '@newfrontdoor/audio-player';
+import {AudioPlayer} from '@newfrontdoor/audio-player';
 import urlFor from '../utils/sanity-img';
 import GoogleMap from './models/google-map';
 import UpcomingEvent from './models/upcoming-event';
 
-function Events({events}) {
-  return events
-    ? events.slice(0, 5).map(event => {
-        return (
-          <UpcomingEvent
-            key={event.name + event.start_date}
-            title={event.name}
-            startdate={event.start_date}
-          />
-        );
-      })
-    : 'Loading, please wait...';
-}
+const Events = ({events}) => {
+  if (events) {
+    return events.slice(0, 5).map((event) => {
+      return (
+        <UpcomingEvent
+          key={event.name + event.start_date}
+          title={event.name}
+          startdate={event.start_date}
+        />
+      );
+    });
+  }
 
-function Map() {
+  return <p>Loading, please wait...</p>;
+};
+
+const Map = () => {
   return (
     <GoogleMap
       location={{lat: -31.9716063, lng: 115.8918229}}
@@ -29,19 +31,16 @@ function Map() {
       mapWidth="100%"
     />
   );
-}
+};
 
-function Sermon({sermonData}) {
+const Sermon = ({sermonData}) => {
   const {_id, image, title, passage, url} = sermonData[0];
   return title ? (
     <div>
       <img
         alt={title}
         sx={{display: 'flex', margin: 'auto', height: '150px'}}
-        src={urlFor(image)
-          .maxHeight(150)
-          .fit('fill')
-          .url()}
+        src={urlFor(image).maxHeight(150).fit('fill').url()}
       />
       <Link href="/sermons/[_id]" as={`/sermon/${_id}`}>
         <Styled.a>
@@ -49,9 +48,9 @@ function Sermon({sermonData}) {
         </Styled.a>
       </Link>
       <Styled.h5>{passage}</Styled.h5>
-      <StyledPlayer
+      <AudioPlayer
         hasPlaybackspeed
-        audio={url}
+        src={url}
         hasBorder={false}
         isInvert={false}
       />
@@ -64,11 +63,11 @@ function Sermon({sermonData}) {
       </Link>
     </div>
   ) : (
-    'loading...'
+    <p>loading...</p>
   );
-}
+};
 
-function Wrapper({segment: {heading, description}, children}) {
+const Wrapper = ({segment: {heading, description}, children}) => {
   return (
     <section>
       <Styled.h2 sx={{mb: 10}}>{heading}</Styled.h2>
@@ -76,7 +75,7 @@ function Wrapper({segment: {heading, description}, children}) {
       {children}
     </section>
   );
-}
+};
 
 Sermon.propTypes = {
   sermonData: PropTypes.array.isRequired
@@ -94,7 +93,7 @@ Wrapper.propTypes = {
   children: PropTypes.element.isRequired
 };
 
-const segments = props => ({
+const segments = (props) => ({
   sermons: <Sermon {...props} />,
   events: <Events {...props} />,
   map: <Map {...props} />

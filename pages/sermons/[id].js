@@ -19,7 +19,7 @@ const menuQuery = `
 }
 `;
 
-function Page({menuData, mainData}) {
+const Page = ({menuData, mainData}) => {
   const {body} = mainData;
 
   return (
@@ -29,7 +29,7 @@ function Page({menuData, mainData}) {
       </Container>
     </Layout>
   );
-}
+};
 
 Page.propTypes = {
   menuData: PropTypes.object.isRequired,

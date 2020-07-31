@@ -80,7 +80,7 @@ Podcast.getInitialProps = async ({res}) => {
     }
 
     return;
-  } catch (error) {
+  } catch {
     return {error: 404};
   }
 };

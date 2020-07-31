@@ -12,23 +12,22 @@
     "@emotion/core": "^10.0.22",
     "@emotion/styled": "^10.0.23",
     "@mdx-js/react": "^1.5.1",
-    "@newfrontdoor/audio-player": "^0.1.8",
-    "@newfrontdoor/calendar": "^2.2.0",
+    "@newfrontdoor/audio-player": "^0.3.0",
+    "@newfrontdoor/footer": "^1.1.1",
     "@newfrontdoor/sanity-block-components": "0.1.1",
     "@react-google-maps/api": "^1.9.5",
     "@sanity/block-content-to-react": "^2.0.7",
     "@sanity/client": "^1.149.16",
     "@sanity/image-url": "^0.140.15",
     "@theme-ui/components": "^0.3.1",
-    "@zeit/next-css": "^1.0.1",
     "config": "^3.2.4",
-    "embla-carousel-react": "^1.2.7",
+    "embla-carousel-react": "^2.0.3",
     "emotion-theming": "^10.0.19",
     "final-form": "^4.18.6",
     "got": "^11.3.0",
-    "ky": "^0.20.0",
+    "ky": "^0.23.0",
     "micro-cors": "^0.1.1",
-    "next": "9.4.4",
+    "next": "^9.4.4",
     "next-compose-plugins": "^2.2.0",
     "next-fonts": "^1.1.0",
     "next-images": "^1.2.0",
@@ -46,13 +45,10 @@
   "devDependencies": {
     "babel-eslint": "^10.0.3",
     "babel-plugin-inline-react-svg": "^1.1.0",
-    "eslint": "^7.2.0",
     "eslint-config-xo-react": "^0.23.0",
     "eslint-plugin-emotion": "^10.0.14",
-    "eslint-plugin-jest": "^23.1.1",
-    "eslint-plugin-react": "^7.17.0",
-    "eslint-plugin-react-hooks": "^4.0.4",
-    "prettier": "^2.0.5",
+    "eslint-plugin-react": "^7.20.4",
+    "eslint-plugin-react-hooks": "^4.0.8",
     "xo": "^0.32.0"
   },
   "browserslist": [
@@ -63,37 +59,32 @@
   ],
   "xo": {
     "extends": [
-      "xo-react",
-      "plugin:jest/recommended"
+      "xo-react"
     ],
     "parser": "babel-eslint",
     "prettier": true,
     "space": true,
+    "envs": [
+      "browser"
+    ],
     "plugins": [
-      "emotion",
-      "jest"
+      "emotion"
     ],
     "rules": {
+      "react/jsx-pascal-case": "off",
+      "import/no-unassigned-import": [
+        "error",
+        {
+          "allow": [
+            "**/*.css"
+          ]
+        }
+      ],
       "emotion/jsx-import": "error",
       "emotion/no-vanilla": "error",
       "emotion/import-from-emotion": "error",
       "emotion/styled-import": "error"
-    },
-    "overrides": [
-      {
-        "files": "**/__tests__/**/*.js",
-        "rules": {
-          "import/no-unassigned-import": [
-            "error",
-            {
-              "allow": [
-                "@testing-library/jest-dom/extend-expect"
-              ]
-            }
-          ]
-        }
-      }
-    ]
+    }
   },
   "eslint": {
     "settings": {

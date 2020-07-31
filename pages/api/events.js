@@ -6,13 +6,15 @@ const pipeline = promisify(stream.pipeline);
 
 const elvantoApi = got.extend({
   headers: {
-    Authorization: `Basic ${Buffer.from(`${process.env.SOUL_ELVANTO_TOKEN}:`).toString("base64")}`,
+    Authorization: `Basic ${Buffer.from(
+      `${process.env.SOUL_ELVANTO_TOKEN}:`
+    ).toString('base64')}`,
     'Content-Type': 'application/json'
   },
   prefixUrl: 'https://api.elvanto.com/v1'
 });
 
-export default async (req, res) => {
+async function events(request, response) {
   const now = new Date();
   const query = {
     page: 1,
@@ -31,8 +33,11 @@ export default async (req, res) => {
 
   await pipeline(
     elvantoApi.stream.post('calendar/events/getAll.json', {
-      json: query
+      json: query,
+      responseType: 'json'
     }),
-    res
+    response
   );
-};
+}
+
+export default events;

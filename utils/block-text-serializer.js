@@ -26,8 +26,8 @@ const passedLink = ({url, children, sx}) => {
   );
 };
 
-function GridBlockSerializer({node: {blocks, columns, style}}) {
-  const segments = data => ({
+const GridBlockSerializer = ({node: {blocks, columns, style}}) => {
+  const segments = (data) => ({
     card: (
       <Card
         {...data}
@@ -95,7 +95,7 @@ function GridBlockSerializer({node: {blocks, columns, style}}) {
       renderProp={(data, style) => segments(data)[style]}
     />
   );
-}
+};
 
 GridBlockSerializer.propTypes = {
   node: PropTypes.shape({
@@ -168,7 +168,7 @@ CustomStyleSerializer.propTypes = {
   }).isRequired
 };
 
-function FormSerializer({node: {title, id, body, fields}}) {
+const FormSerializer = ({node: {title, id, body, fields}}) => {
   return (
     <Form
       key={id}
@@ -178,7 +178,7 @@ function FormSerializer({node: {title, id, body, fields}}) {
       fields={fields}
     />
   );
-}
+};
 
 FormSerializer.propTypes = {
   node: PropTypes.shape({
@@ -189,22 +189,22 @@ FormSerializer.propTypes = {
   }).isRequired
 };
 
-function ListSerializer({type, children}) {
+const ListSerializer = ({type, children}) => {
   return type === 'bullet' ? (
     <Styled.ul>{children}</Styled.ul>
   ) : (
     <Styled.ol>{children}</Styled.ol>
   );
-}
+};
 
 ListSerializer.propTypes = {
   children: PropTypes.element.isRequired,
   type: PropTypes.string.isRequired
 };
 
-function ListItemSerializer({children}) {
+const ListItemSerializer = ({children}) => {
   return <Styled.li>{children}</Styled.li>;
-}
+};
 
 ListItemSerializer.propTypes = {
   children: PropTypes.element.isRequired
