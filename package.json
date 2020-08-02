@@ -14,6 +14,7 @@
     "@mdx-js/react": "^1.5.1",
     "@newfrontdoor/audio-player": "^0.3.0",
     "@newfrontdoor/footer": "^1.1.1",
+    "@newfrontdoor/link": "^0.1.2",
     "@newfrontdoor/sanity-block-components": "0.1.1",
     "@react-google-maps/api": "^1.9.5",
     "@sanity/block-content-to-react": "^2.0.7",

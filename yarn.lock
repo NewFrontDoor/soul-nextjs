@@ -1143,6 +1143,13 @@
   dependencies:
     react-icons "^3.10.0"
 
+"@newfrontdoor/link@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@newfrontdoor/link/-/link-0.1.2.tgz#740285f58a9b5b03dcdda7ca448cb5db90dea30e"
+  integrity sha512-VnYc6tnoVYLVaC/15YFLGp/L1lq4wVJPP+Gvo3mSvGcO+R/ylB5yUVar0LvKPVVZgoi5sQCvgeJjoLHoK9C7OA==
+  dependencies:
+    prop-types "^15.6.0"
+
 "@newfrontdoor/sanity-block-components@0.1.1":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@newfrontdoor/sanity-block-components/-/sanity-block-components-0.1.1.tgz#384057f679a7a161b300e7e9b7a00d0a4cf3995e"
@@ -6813,7 +6820,7 @@ prop-types-exact@1.2.0:
     object.assign "^4.1.0"
     reflect.ownkeys "^0.2.0"
 
-prop-types@15.7.2, prop-types@^15.5.8, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@15.7.2, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==

@@ -1,59 +1,70 @@
 /** @jsx jsx */
 import {useState} from 'react';
-import styled from '@emotion/styled';
-import {jsx} from 'theme-ui';
+import {jsx, Box, Flex, Button, Link as UILink, ThemeProvider} from 'theme-ui';
 import Link from 'next/link';
 import Logo from '../public/logo2.svg';
-import theme from '../lib/theme';
 import Menu from './menu';
+import * as Collapse from './collapse';
 
-const Header = styled('header')`
-  display: flex;
-  width: 100vw;
-  margin-left: auto;
-  margin-right: auto;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  background-color: ${(props) => props.theme.colors.primary};
-  align-items: flex-end;
-  height: 130px;
-`;
-
-const MenuButton = styled('button')`
-  flex: 0 1 auto;
-  border: 1px solid #c2b49a;
-  background: #c2b49a;
-  color: #fff;
-  float: none;
-  border-radius: 0;
-  width: 100%;
-  max-width: 250px;
-  padding: 12px;
-  margin-bottom: 30px;
-  display: block;
-  @media (min-width: 770px) {
-    display: none;
-  }
-`;
-
-const Navigation = ({menuData}) => {
-  const [menuVisible, toggleMenuVisible] = useState(false);
+const Navigation = ({menuitems}) => {
   return (
-    <Header theme={theme}>
-      <Link passHref href="/" as="/">
-        <a sx={{flex: '0 1 auto', height: '110px'}}>
-          <Logo sx={{height: '80px', fill: 'white', paddingBottom: '1rem'}} />
-        </a>
-      </Link>
-      <MenuButton type="button" onClick={() => toggleMenuVisible(!menuVisible)}>
-        MENU
-      </MenuButton>
-      <Menu
-        sx={{flex: '0 1 auto'}}
-        items={menuData.menuitems}
-        isVisible={menuVisible}
-      />
-    </Header>
+    <ThemeProvider
+      theme={{
+        colors: {
+          primary: '#3C5A72',
+          background: '#3C5A72',
+          text: '#fff'
+        }
+      }}
+    >
+      <Collapse.Manager>
+        <Flex
+          as="header"
+          sx={{
+            bg: 'primary',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            justifyContent: 'space-around',
+            flexWrap: 'wrap',
+            alignItems: 'flex-end'
+          }}
+        >
+          <Box pb={3} sx={{flex: '0 1 auto', height: '110px'}}>
+            <Link passHref href="/" as="/">
+              <UILink sx={{color: 'background'}}>
+                <Logo sx={{height: '80px'}} />
+              </UILink>
+            </Link>
+          </Box>
+          <Box pb={3} sx={{flex: '1 0 100%', display: ['block', ' none']}}>
+            <Collapse.Toggle>
+              <Button
+                type="button"
+                sx={{
+                  display: 'block',
+                  margin: '0 auto',
+                  border: '1px solid #c2b49a',
+                  background: '#c2b49a',
+                  color: 'text',
+                  borderRadius: '0',
+                  width: '100%',
+                  maxWidth: '250px',
+                  padding: '12px',
+                  textTransform: 'uppercase'
+                }}
+              >
+                Menu
+              </Button>
+            </Collapse.Toggle>
+          </Box>
+          <Box px={4} sx={{flex: ['1 0 100%', '0 1 auto']}}>
+            <Collapse.Panel expanded={[false, true]}>
+              <Menu items={menuitems} />
+            </Collapse.Panel>
+          </Box>
+        </Flex>
+      </Collapse.Manager>
+    </ThemeProvider>
   );
 };
 

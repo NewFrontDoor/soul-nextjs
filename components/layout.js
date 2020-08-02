@@ -87,7 +87,7 @@ const Layout = ({menuData, children, mainData}) => {
           />
         )}
       </Head>
-      <Navigation menuData={menuData} />
+      <Navigation {...menuData} />
       {slug === 'null' ? (
         ''
       ) : (
@@ -171,7 +171,7 @@ const HomeLayout = ({menuData, children, mainData}) => {
             .url()}
         />
       </Head>
-      <Navigation menuData={menuData} />
+      <Navigation {...menuData} />
       {children}
       <Footer />
     </ThemeProvider>

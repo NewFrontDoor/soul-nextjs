@@ -1,109 +1,109 @@
 /** @jsx jsx */
-import {useState} from 'react';
-import {jsx} from 'theme-ui';
-import styled from '@emotion/styled';
+import {jsx, Styled} from 'theme-ui';
 import Link from 'next/link';
 import {Text, Link as UILink} from '@theme-ui/components';
 
-const List = styled('ul')`
-  margin: 0;
-  margin-left: 100px;
-  list-style: none;
-  display: ${(props) => props.isVisible};
-  @media (min-width: 770px) {
-    display: flex;
-  }
-  & > li {
-    padding-right: 30px;
-    align-self: center;
-  }
-`;
+const hoverVisible = {
+  visibility: 'visible',
+  opacity: '1',
+  display: 'block'
+};
 
-const ListItem = styled('li')`
-  position: relative;
-  line-height: 1.6;
-  transition: all 0.5s ease;
-  &:hover > ul,
-  ul li ul:hover {
-    visibility: visible;
-    opacity: 1;
-    display: block;
-  }
-  a {
-    text-decoration: none;
-  }
-  color: #444446;
-  @media screen and (min-width: 768px) {
-    color: white;
-    padding-bottom: 1rem;
-    margin-bottom: -1rem;
-    line-height: initial;
-  }
-`;
+const ListItem = (props) => (
+  <Styled.li
+    {...props}
+    sx={{
+      position: 'relative',
+      lineHeight: '1.6',
+      px: [0, 4],
+      alignSelf: 'center',
+      color: '#444446',
+      '&:hover > ul': hoverVisible,
+      '&:focus-within > ul': hoverVisible,
+      '&:li ul:hover': hoverVisible
+    }}
+  />
+);
 
-const Submenu = styled('ul')`
-  list-style: none;
-  margin: 0;
-  padding-left: 0;
-  visibility: hidden;
-  opacity: 0;
-  width: 150%;
-  min-width: 5rem;
-  position: absolute;
-  transition: all 0.5s ease;
-  left: 0;
-  display: none;
-  padding: 0.75em 0;
-  border-radius: 0.3125em;
-  background-color: white;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-`;
+const Submenu = (props) => (
+  <Styled.ul
+    {...props}
+    sx={{
+      zIndex: 1,
+      listStyle: 'none',
+      visibility: ['visible', 'hidden'],
+      opacity: ['1', '0'],
+      minWidth: '10rem',
+      position: ['unset', 'absolute'],
+      transition: 'opacity 0.5s ease',
+      left: '0',
+      display: ['block', 'none'],
+      padding: '0.75em 0',
+      borderRadius: '0.3125em',
+      backgroundColor: ['unset', 'white'],
+      boxShadow: ['none', '0 2px 12px rgba(0, 0, 0, 0.15)']
+    }}
+  />
+);
 
-const Menu = ({items, isVisible}) => {
-  const [openMenu, updateOpenMenu] = useState(null);
-
+const Menu = ({items}) => {
   return (
-    <List isVisible={isVisible ? 'block' : 'none'}>
+    <Styled.ul
+      sx={{
+        margin: 0,
+        padding: 0,
+        listStyle: 'none',
+        display: ['block', 'flex'],
+        flexWrap: ['no-wrap', 'wrap']
+      }}
+    >
       {items.map((item) => {
         if (!item.childpages) {
           return null;
         }
 
-        return item.childpages.length <= 1 ? (
+        return (
           <ListItem key={item.subtext}>
-            <Link href="/[slug]" as={`/${item.childpages[0].slug.current}`}>
+            <Link
+              passHref
+              href="/[slug]"
+              as={`/${item.childpages[0].slug.current}`}
+            >
               <UILink variant="nav">
-                <Text variant="menu">{item.title}</Text>
-                <Text variant="subtext">{item.subtext}</Text>
+                <Text as="p" variant="menu">
+                  {item.title}
+                </Text>
+                <Text as="p" variant="subtext">
+                  {item.subtext}
+                </Text>
               </UILink>
             </Link>
-          </ListItem>
-        ) : (
-          <ListItem key={item.subtext}>
-            <Link href="/[slug]" as={`/${item.childpages[0].slug.current}`}>
-              <UILink variant="nav">
-                <Text variant="menu">{item.title}</Text>
-                <Text variant="subtext">{item.subtext}</Text>
-              </UILink>
-            </Link>
-            <Submenu>
-              {item.childpages.map((child) => {
-                return (
-                  <li
+            {item.childpages.length > 1 && (
+              <Submenu>
+                {item.childpages.map((child) => (
+                  <Styled.li
                     key={child.slug.current + child.title}
-                    sx={{padding: '0.25rem 0'}}
+                    sx={{
+                      padding: '0.25rem 0.75em',
+                      '&:focus-within': {
+                        backgroundColor: 'rgba(0, 0, 0, 0.1)'
+                      },
+                      '&:hover': {
+                        backgroundColor: 'rgba(0, 0, 0, 0.1)'
+                      }
+                    }}
                   >
-                    <Link href="[slug]" as={`/${child.slug.current}`}>
+                    <Link passHref href="[slug]" as={`/${child.slug.current}`}>
                       <UILink variant="subnav">{child.title}</UILink>
                     </Link>
-                  </li>
-                );
-              })}
-            </Submenu>
+                  </Styled.li>
+                ))}
+              </Submenu>
+            )}
           </ListItem>
         );
       })}
-    </List>
+    </Styled.ul>
   );
 };
 
