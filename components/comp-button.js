@@ -1,62 +1,53 @@
-import React from 'react';
-import styled from '@emotion/styled';
+/** @jsx jsx */
+import {jsx, useThemeUI} from 'theme-ui';
 import PropTypes from 'prop-types';
-import {useThemeUI} from 'theme-ui';
 
-const IconCircle = styled('button')`
-  border: ${({bgcolor, sizes}) => `${sizes[1]}em solid ${bgcolor}`};
-  background-color: ${(props) => props.primary};
-  border-radius: 50%;
-  height: ${({sizes}) => sizes[6]}em;
-  width: ${({sizes}) => sizes[6]}em;
-  z-index: 1;
-  position: relative;
-  vertical-align: middle;
-  color: ${(props) => props.accent};
-  svg {
-    height: 1em;
-    width: 1em;
-    vertical-align: middle;
-  }
-`;
-
-const Label = styled('button')`
-  padding: ${({sizes}) => `${sizes[1]}em ${sizes[2]}em`};
-  padding-left: ${({sizes}) => sizes[4]}em;
-  background-color: ${(props) => props.primary};
-  color: ${(props) => props.background};
-  z-index: 0;
-  position: relative;
-  vertical-align: middle;
-  text-align: right;
-  margin-left: ${({sizes}) => sizes[0]}em;
-  border-top-right-radius: ${({sizes}) => sizes[5]}em;
-  border-bottom-right-radius: ${({sizes}) => sizes[5]}em;
-  color: ${(props) => props.accent};
-  font-size: ${({sizes}) => sizes[3]}em;
-  white-space: nowrap;
-  overflow: hidden;
-  border: none;
-`;
-
-const CompButton = ({icon, text, color, size = 1}) => {
+const CompButton = ({icon, text, color}) => {
   const {theme} = useThemeUI();
-  const vals = [-0.75, 0.3, 0.6, 0.8, 1, 1.25, 2.5, 3, 10];
-  const sizes = vals.map((value) => value * size);
 
   return (
     <div tabIndex="0" style={{width: 'fit-content'}}>
-      <IconCircle
+      <button
+        type="button"
         tabIndex="-1"
-        bgcolor={theme.colors[color]}
-        {...theme.colors}
-        sizes={sizes}
+        sx={{
+          color: 'accent',
+          borderRadius: '50%',
+          zIndex: '1',
+          position: 'relative',
+          verticalAlign: 'middle',
+          height: '3.75em',
+          width: '3.75em',
+          border: `0.5em solid ${theme.colors[color]}`,
+          bg: 'primary',
+          svg: {height: '1em', width: '1em', verticalAlign: 'middle'}
+        }}
       >
         {icon}
-      </IconCircle>
-      <Label tabIndex="-1" sizes={sizes} {...theme.colors}>
+      </button>
+      <button
+        type="button"
+        tabIndex="-1"
+        sx={{
+          zIndex: '0',
+          position: 'relative',
+          verticalAlign: 'middle',
+          textAlign: 'right',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          border: 'none',
+          height: '2.75em',
+          padding: '0 1.5em 0 2.5em',
+          bg: 'primary',
+          marginLeft: `-1.5em`,
+          borderTopRightRadius: `3em`,
+          borderBottomRightRadius: `3em`,
+          color: 'accent',
+          fontFamily: 'body'
+        }}
+      >
         {text}
-      </Label>
+      </button>
     </div>
   );
 };
@@ -66,6 +57,5 @@ export default CompButton;
 CompButton.propTypes = {
   color: PropTypes.string.isRequired,
   icon: PropTypes.any,
-  size: PropTypes.number,
   text: PropTypes.string.isRequired
 };
