@@ -28,7 +28,7 @@
     "got": "^11.3.0",
     "ky": "^0.23.0",
     "micro-cors": "^0.1.1",
-    "next": "^9.4.4",
+    "next": "^9.5.4",
     "next-compose-plugins": "^2.2.0",
     "next-fonts": "^1.1.0",
     "next-images": "^1.2.0",
