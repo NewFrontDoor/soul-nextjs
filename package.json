@@ -13,6 +13,7 @@
     "@emotion/styled": "^10.0.23",
     "@mdx-js/react": "^1.5.1",
     "@newfrontdoor/audio-player": "^0.3.0",
+    "@newfrontdoor/collapse": "^0.2.2",
     "@newfrontdoor/footer": "^1.1.1",
     "@newfrontdoor/link": "^0.1.2",
     "@newfrontdoor/sanity-block-components": "0.1.1",
@@ -20,7 +21,8 @@
     "@sanity/block-content-to-react": "^2.0.7",
     "@sanity/client": "^1.149.16",
     "@sanity/image-url": "^0.140.15",
-    "@theme-ui/components": "^0.3.1",
+    "@theme-ui/components": "^0.3.5",
+    "@theme-ui/match-media": "^0.3.5",
     "config": "^3.2.4",
     "embla-carousel-react": "^2.0.3",
     "emotion-theming": "^10.0.19",
@@ -40,7 +42,7 @@
     "react-final-form": "^6.3.3",
     "react-icons": "^3.8.0",
     "react-spring": "^8.0.27",
-    "theme-ui": "^0.3.1",
+    "theme-ui": "^0.3.5",
     "xmlbuilder": "^15.1.1"
   },
   "devDependencies": {
