@@ -1,37 +1,25 @@
-import React from 'react';
+/** @jsx jsx */
+import {jsx, Box, Flex, Heading, Text} from 'theme-ui';
 import PropTypes from 'prop-types';
-import styled from '@emotion/styled';
 import {IoIosCalendar} from 'react-icons/io';
-
-const EventWrapper = styled('div')`
-  padding: 8px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  margin-bottom: 5px;
-`;
-
-const Icon = styled(IoIosCalendar)`
-  font-size: 40px;
-  float: left;
-`;
-
-const Title = styled('div')`
-  font-size: 1.1em;
-  margin-left: 45px;
-`;
-
-const StartDate = styled('div')`
-  font-size: 0.9em;
-  margin-left: 45px;
-`;
 
 const UpcomingEvent = ({title, startdate}) => {
   return (
-    <EventWrapper>
-      <Icon />
-      <Title>{title}</Title>
-      <StartDate>{startdate}</StartDate>
-    </EventWrapper>
+    <Flex
+      p={2}
+      mb={2}
+      sx={{
+        border: '1px solid #ccc'
+      }}
+    >
+      <Box sx={{flexShrink: 0}}>
+        <IoIosCalendar size="40px" />
+      </Box>
+      <Box ml={2}>
+        <Heading as="h4">{title}</Heading>
+        <Text as="p">{startdate}</Text>
+      </Box>
+    </Flex>
   );
 };
 

@@ -4,7 +4,10 @@ import styled from '@emotion/styled';
 import {Styled} from 'theme-ui';
 import {postToWebform} from '../../utils/post-to-api';
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const sleep = (ms) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
 
 const onSubmit = async (values) => {
   const form = new FormData();
@@ -40,7 +43,7 @@ const onSubmit = async (values) => {
   await sleep(300);
 
   postToWebform(form, (data) => {
-    console.log('submitted');
+    console.log('submitted', data);
   });
 
   window.alert(
@@ -66,7 +69,7 @@ const Input = styled.input`
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 `;
 
-const Request_ = styled.span`
+const Required = styled.span`
   color: red;
 `;
 
@@ -104,7 +107,9 @@ const ContactForm = () => {
                         <div>
                           <label>
                             Your name{' '}
-                            <Req title="This field is required.">*</Req>
+                            <Required title="This field is required.">
+                              *
+                            </Required>
                           </label>
                           <Input
                             {...input}
@@ -125,7 +130,9 @@ const ContactForm = () => {
                         <div>
                           <label>
                             Your email address{' '}
-                            <Req title="This field is required.">*</Req>
+                            <Required title="This field is required.">
+                              *
+                            </Required>
                           </label>
                           <Input
                             {...input}
@@ -157,7 +164,10 @@ const ContactForm = () => {
                       {({input, meta}) => (
                         <div>
                           <label>
-                            Message <Req title="This field is required.">*</Req>
+                            Message{' '}
+                            <Required title="This field is required.">
+                              *
+                            </Required>
                           </label>
                           <div>
                             <Input

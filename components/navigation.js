@@ -36,8 +36,8 @@ const Navigation = ({menuitems}) => {
           alignItems: 'flex-end'
         }}
       >
-        <Box pb={3} sx={{flex: '0 1 auto', height: '110px'}}>
-          <Link passHref href="/" as="/">
+        <Box py={3} sx={{flex: '0 1 auto', height: '110px'}}>
+          <Link passHref href="/">
             <UILink sx={{color: 'background'}}>
               <Logo sx={{height: '80px'}} />
             </UILink>

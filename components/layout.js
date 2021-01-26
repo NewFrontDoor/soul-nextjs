@@ -118,14 +118,12 @@ const Layout = ({menuData, children, mainData}) => {
               {title}
             </Styled.h1>
             {cta && (
-              <div>
-                <CompButton
-                  icon={icons[cta.icon]}
-                  text={cta.text}
-                  color="banner"
-                  size={1.5}
-                />
-              </div>
+              <CompButton
+                icon={icons[cta.icon]}
+                text={cta.text}
+                color="banner"
+                size={1.5}
+              />
             )}
           </Flex>
         </React.Fragment>

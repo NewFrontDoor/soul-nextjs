@@ -6,49 +6,41 @@ const CompButton = ({icon, text, color}) => {
   const {theme} = useThemeUI();
 
   return (
-    <div tabIndex="0" style={{width: 'fit-content'}}>
-      <button
-        type="button"
-        tabIndex="-1"
+    <button
+      type="button"
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        border: 'none',
+        height: '2.75em',
+        padding: '0 1.5em',
+        bg: 'primary',
+        borderRadius: '3em',
+        overflow: 'hidden',
+        color: 'accent',
+        fontFamily: 'body'
+      }}
+    >
+      <span
         sx={{
+          alignItems: 'center',
+          display: 'inline-flex',
+          justifyContent: 'center',
+          marginLeft: '-2rem',
+          marginRight: '1rem',
           color: 'accent',
           borderRadius: '50%',
-          zIndex: '1',
-          position: 'relative',
-          verticalAlign: 'middle',
-          height: '3.75em',
-          width: '3.75em',
+          height: '2.75em',
+          width: '2.75em',
           border: `0.5em solid ${theme.colors[color]}`,
           bg: 'primary',
           svg: {height: '1em', width: '1em', verticalAlign: 'middle'}
         }}
       >
         {icon}
-      </button>
-      <button
-        type="button"
-        tabIndex="-1"
-        sx={{
-          zIndex: '0',
-          position: 'relative',
-          verticalAlign: 'middle',
-          textAlign: 'right',
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          border: 'none',
-          height: '2.75em',
-          padding: '0 1.5em 0 2.5em',
-          bg: 'primary',
-          marginLeft: `-1.5em`,
-          borderTopRightRadius: `3em`,
-          borderBottomRightRadius: `3em`,
-          color: 'accent',
-          fontFamily: 'body'
-        }}
-      >
-        {text}
-      </button>
-    </div>
+      </span>
+      <span>{text}</span>
+    </button>
   );
 };
 

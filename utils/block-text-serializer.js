@@ -10,13 +10,13 @@ import {
   Overlay,
   TextCard
 } from '@newfrontdoor/sanity-block-components';
-import Form from '../components/form';
+import {Form} from '@newfrontdoor/form';
 import GridBlock from '../components/grid-block';
 import urlFor from './sanity-img';
 
 const passedLink = ({url, children, sx}) => {
   return url.type ? (
-    <Link href={`/[${url.type}]`} as={`/${url.url}`}>
+    <Link href={`/${url.url}`}>
       <a sx={{display: 'contents'}}>{children}</a>
     </Link>
   ) : (
@@ -176,6 +176,7 @@ const FormSerializer = ({node: {title, id, body, fields}}) => {
       id={id}
       description={<SanityBlock blocks={body} />}
       fields={fields}
+      submitForm={(wat) => console.log(wat)}
     />
   );
 };
@@ -225,9 +226,11 @@ const serializers = {
   listItem: ListItemSerializer
 };
 
-export default function SanityBlock({blocks}) {
+const SanityBlock = ({blocks}) => {
   return <BlockContent blocks={blocks} serializers={serializers} />;
-}
+};
+
+export default SanityBlock;
 
 SanityBlock.propTypes = {
   blocks: PropTypes.object.isRequired

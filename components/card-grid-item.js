@@ -1,8 +1,7 @@
 /** @jsx jsx */
-import {css, jsx} from '@emotion/core';
 import styled from '@emotion/styled';
 import Link from 'next/link';
-import {Styled, jsx} from 'theme-ui';
+import {Styled, css, jsx} from 'theme-ui';
 import PropTypes from 'prop-types';
 
 const Actions = styled('section')`
@@ -49,7 +48,7 @@ const Header = styled(Styled.h3)`
   margin: 0.5em;
 `;
 
-let InternalLink = ({url, children}) => {
+const InternalLink = ({url, children}) => {
   return (
     <Link passHref css={action} href={`/${url}`}>
       <Styled.a>{children}</Styled.a>
@@ -57,7 +56,7 @@ let InternalLink = ({url, children}) => {
   );
 };
 
-let ExternalLink = ({url, children}) => {
+const ExternalLink = ({url, children}) => {
   return (
     <Styled.a css={action} href={`${url}`}>
       {children}
@@ -67,7 +66,7 @@ let ExternalLink = ({url, children}) => {
 
 const regex = /^(?!www\.|(?:http|ftp)s?:\/\/|[A-Za-z]:\\|\/\/).*/;
 
-let Card = ({title, description, image, link, action}) => {
+const Card = ({title, description, image, link, action}) => {
   return (
     <div>
       {regex.test(link) ? (

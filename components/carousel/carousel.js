@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import {useState, useEffect, useCallback} from 'react';
-import EmblaCarouselReact from 'embla-carousel-react';
+import EmblaCarouselReact from 'embla-carousel/react';
 import {jsx, css} from '@emotion/core';
 import {useInterval} from '../../utils/hooks';
-import {DotButton, PrevButton, NextButton} from './carousel-buttons';
+import {DotButton, PreviousButton, NextButton} from './carousel-buttons';
 
 const dots = css`
   position: absolute;
@@ -21,17 +21,17 @@ const relative = css`
   position: relative;
 `;
 
-export default function Carousel({autoplay, delayLength, children}) {
+const Carousel = ({autoplay, delayLength, children}) => {
   const [embla, setEmbla] = useState(null);
-  const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
+  const [previousBtnEnabled, setPreviousBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState([]);
   const [delay, setDelay] = useState(delayLength);
   const [isRunning, setIsRunning] = useState(autoplay);
 
-  const scrollTo = useCallback(index => embla.scrollTo(index), [embla]);
-  const scrollPrev = useCallback(() => embla.scrollPrev(), [embla]);
+  const scrollTo = useCallback((index) => embla.scrollTo(index), [embla]);
+  const scrollPrevious = useCallback(() => embla.scrollPrev(), [embla]);
   const scrollNext = useCallback(() => embla.scrollNext(), [embla]);
 
   useInterval(
@@ -48,7 +48,7 @@ export default function Carousel({autoplay, delayLength, children}) {
   useEffect(() => {
     const onSelect = () => {
       setSelectedIndex(embla.selectedScrollSnap());
-      setPrevBtnEnabled(embla.canScrollPrev());
+      setPreviousBtnEnabled(embla.canScrollPrev());
       setNextBtnEnabled(embla.canScrollNext());
     };
 
@@ -65,7 +65,7 @@ export default function Carousel({autoplay, delayLength, children}) {
     <div css={relative}>
       <EmblaCarouselReact
         htmlTagName="div"
-        emblaRef={c => setEmbla(c)}
+        emblaRef={(c) => setEmbla(c)}
         options={{loop: false}}
       >
         <div style={{display: 'flex'}}>
@@ -85,8 +85,10 @@ export default function Carousel({autoplay, delayLength, children}) {
           />
         ))}
       </div>
-      <PrevButton enabled={prevBtnEnabled} onClick={scrollPrev} />
+      <PreviousButton enabled={previousBtnEnabled} onClick={scrollPrevious} />
       <NextButton enabled={nextBtnEnabled} onClick={scrollNext} />
     </div>
   );
-}
+};
+
+export default Carousel;

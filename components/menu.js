@@ -64,11 +64,7 @@ const Menu = ({items}) => {
 
         return (
           <ListItem key={item.subtext}>
-            <Link
-              passHref
-              href="/[slug]"
-              as={`/${item.childpages[0].slug.current}`}
-            >
+            <Link passHref href={`/${item.childpages[0].slug.current}`}>
               <UILink variant="nav">
                 <Text as="p" variant="menu">
                   {item.title}
@@ -93,7 +89,7 @@ const Menu = ({items}) => {
                       }
                     }}
                   >
-                    <Link passHref href="[slug]" as={`/${child.slug.current}`}>
+                    <Link passHref href={`/${child.slug.current}`}>
                       <UILink variant="subnav">{child.title}</UILink>
                     </Link>
                   </Styled.li>

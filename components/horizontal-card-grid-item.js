@@ -17,18 +17,20 @@ const regex = /^(?!www\.|(?:http|ftp)s?:\/\/|[A-Za-z]:\\|\/\/).*/;
 const HorizontalCard = ({title, description, image, link}) => {
   return (
     <Wrapper>
-      {!link ? (
-        <img src={image} alt={title} />
-      ) : regex.test(link) ? (
-        <Link href={`/${link}`}>
-          <a>
+      {link ? (
+        regex.test(link) ? (
+          <Link href={`/${link}`}>
+            <a>
+              <img src={image} alt={title} />
+            </a>
+          </Link>
+        ) : (
+          <a href={link}>
             <img src={image} alt={title} />
           </a>
-        </Link>
+        )
       ) : (
-        <a href={link}>
-          <img src={image} alt={title} />
-        </a>
+        <img src={image} alt={title} />
       )}
       <div>
         <Styled.h3>{title}</Styled.h3>

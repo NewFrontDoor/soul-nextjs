@@ -15,7 +15,7 @@ const SliderImg = styled('img')`
 const SliderWrapper = styled('div')`
   margin-top: 40px;
   text-align: center;
-  height: 550px;
+  max-height: 60vh;
   overflow: hidden;
 `;
 
@@ -181,7 +181,7 @@ export async function getServerSideProps() {
 
   const {events} = await response.json();
 
-  results.events = events.event;
+  results.events = events?.event ?? [];
 
   return {
     props: results

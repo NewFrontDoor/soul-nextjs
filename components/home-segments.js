@@ -42,7 +42,7 @@ const Sermon = ({sermonData}) => {
         sx={{display: 'flex', margin: 'auto', height: '150px'}}
         src={urlFor(image).maxHeight(150).fit('fill').url()}
       />
-      <Link href="/sermons/[_id]" as={`/sermon/${_id}`}>
+      <Link passHref href={`/sermons/${_id}`}>
         <Styled.a>
           <Styled.h4 sx={{marginTop: '8px'}}>{title}</Styled.h4>
         </Styled.a>
@@ -58,7 +58,7 @@ const Sermon = ({sermonData}) => {
         download now
       </Styled.a>
       <br />
-      <Link passHref href="/sermons" as="/sermons">
+      <Link passHref href="/sermons">
         <Styled.a sx={{color: 'light'}}>view all sermons</Styled.a>
       </Link>
     </div>
@@ -71,7 +71,7 @@ const Wrapper = ({segment: {heading, description}, children}) => {
   return (
     <section>
       <Styled.h2 sx={{mb: 10}}>{heading}</Styled.h2>
-      <Styled.h4 sx={{mt: 16}}>{description}</Styled.h4>
+      <Styled.h3 sx={{mt: 16}}>{description}</Styled.h3>
       {children}
     </section>
   );
