@@ -9,8 +9,11 @@ const client = sanityClient({
 
 export const SanityContext = createContext(client);
 
-export function fetchQuery(query, parameters) {
-  return client.fetch(query, parameters);
+export async function fetchQuery<T>(
+  query: string,
+  parameters?: Record<string, unknown>
+): Promise<T> {
+  return client.fetch<T>(query, parameters);
 }
 
 export default client;

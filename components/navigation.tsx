@@ -5,9 +5,13 @@ import Link from 'next/link';
 import {useResponsiveValue} from '@theme-ui/match-media';
 import {useCollapse} from '@newfrontdoor/collapse';
 import Logo from '../public/logo2.svg';
-import Menu from './menu';
+import Menu, {MenuProps} from './menu';
 
-const Navigation = ({menuitems}) => {
+export type NavigationProps = {
+  menuitems: MenuProps['items'];
+};
+
+const Navigation = ({menuitems}: NavigationProps) => {
   const contentRef = useRef(null);
   const isDisabled = useResponsiveValue([false, true]);
   const {getToggleProps, getCollapseProps} = useCollapse({

@@ -2,42 +2,36 @@
 import React from 'react';
 import Head from 'next/head';
 import {useRouter} from 'next/router';
-import {ThemeProvider, Styled, jsx} from 'theme-ui';
-import styled from '@emotion/styled';
+import {ThemeProvider, Styled, Box, Flex, Image, jsx} from 'theme-ui';
 import {MdEmail as Email, MdMap as Map} from 'react-icons/md';
 import {FaPodcast as Podcast, FaCalendarAlt as Calendar} from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import theme from '../lib/theme';
-import urlFor from '../utils/sanity-img';
+import urlFor, {SanityImageSource} from '../utils/sanity-img';
 import CompButton from './comp-button';
 import Footer from './footer';
-import Navigation from './navigation';
+import Navigation, {NavigationProps} from './navigation';
 
-const CoverImage = styled('div')`
-  background-image: url(${(props) =>
-    props.img.asset.metadata ? props.img.asset.metadata.lqip : ''});
-  background-size: cover;
-  width: 100%;
-  height: 250px;
-  overflow: hidden;
-  margin-top: 40px;
-`;
+type CoverImageProps = {
+  img?: SanityImageSource;
+  children: React.ReactNode;
+};
 
-const InnerImg = styled('img')`
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-  object-position: 0 0;
-`;
-
-const Flex = styled('div')`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 96px;
-  background-color: ${(props) => props.background};
-  padding: 0 10vw;
-`;
+const CoverImage = (props: CoverImageProps) => (
+  <Box
+    sx={{
+      backgroundImage: `url(${
+        props.img?.asset?.metadata ? props.img.asset.metadata.lqip : ''
+      })`,
+      backgroundSize: 'cover',
+      width: '100%',
+      height: '250px',
+      overflow: 'hidden',
+      marginTop: '40px'
+    }}
+    {...props}
+  />
+);
 
 const icons = {
   email: <Email />,
@@ -46,7 +40,27 @@ const icons = {
   map: <Map />
 };
 
-const Layout = ({menuData, children, mainData}) => {
+type LayoutProps = {
+  menuData: {
+    menuitems: NavigationProps['menuitems'];
+  };
+  mainData: {
+    mainImage?: SanityImageSource;
+    cta?: {
+      icon: string;
+      text: string;
+    };
+    title: string;
+    seo?: {
+      title?: string;
+      metaDescription?: string;
+      socialImage?: SanityImageSource;
+    };
+  };
+  children: React.ReactNode;
+};
+
+const Layout = ({menuData, children, mainData}: LayoutProps) => {
   const router = useRouter();
   const {slug} = router.query;
   const {mainImage, cta, title, seo} = mainData;
@@ -55,14 +69,14 @@ const Layout = ({menuData, children, mainData}) => {
       <Head>
         <title>{title} | Soul Church</title>
         <meta property="og:type" content="website" />
-        {seo && seo.title && (
+        {seo?.title && (
           <meta
             name="og:title"
             property="og:title"
             content={seo.title || title}
           />
         )}
-        {seo && seo.metaDescription && (
+        {seo?.metaDescription && (
           <meta
             name="og:description"
             property="og:description"
@@ -75,7 +89,7 @@ const Layout = ({menuData, children, mainData}) => {
           property="og:url"
           content={`https://soulchurch.org.au${router.asPath}`}
         />
-        {seo && seo.socialImage ? (
+        {seo?.socialImage ? (
           <meta
             property="og:image"
             content={urlFor(seo.socialImage).format('jpg').url()}
@@ -103,7 +117,13 @@ const Layout = ({menuData, children, mainData}) => {
                   .url()}
                 type="image/webp"
               />
-              <InnerImg
+              <Image
+                sx={{
+                  objectFit: 'cover',
+                  width: '100%',
+                  height: '100%',
+                  objectPosition: '0 0'
+                }}
                 src={urlFor(mainImage)
                   .height(250)
                   .width(1400)
@@ -113,7 +133,15 @@ const Layout = ({menuData, children, mainData}) => {
               />
             </picture>
           </CoverImage>
-          <Flex sx={{backgroundColor: 'banner'}}>
+          <Flex
+            sx={{
+              backgroundColor: 'banner',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              height: '96px',
+              padding: '0 10vw'
+            }}
+          >
             <Styled.h1 sx={{fontWeight: 'body', margin: '0'}}>
               {title}
             </Styled.h1>
@@ -122,7 +150,6 @@ const Layout = ({menuData, children, mainData}) => {
                 icon={icons[cta.icon]}
                 text={cta.text}
                 color="banner"
-                size={1.5}
               />
             )}
           </Flex>
@@ -142,7 +169,7 @@ Layout.propTypes = {
 
 export default Layout;
 
-const HomeLayout = ({menuData, children, mainData}) => {
+const HomeLayout = ({menuData, children, mainData}: LayoutProps) => {
   const {title, metaDescription, socialImage} = mainData.seo;
   return (
     <ThemeProvider theme={theme}>

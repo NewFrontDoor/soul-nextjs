@@ -1,26 +1,33 @@
 /** @jsx jsx */
-import {jsx, Styled} from 'theme-ui';
+import {jsx, Image, Styled} from 'theme-ui';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import {AudioPlayer} from '@newfrontdoor/audio-player';
-import urlFor from '../utils/sanity-img';
+import urlFor, {SanityImageSource} from '../utils/sanity-img';
 import GoogleMap from './models/google-map';
 import UpcomingEvent from './models/upcoming-event';
 
-const Events = ({events}) => {
-  if (events) {
-    return events.slice(0, 5).map((event) => {
-      return (
+type EventsProps = {
+  events?: Array<{
+    name: string;
+    start_date: string;
+  }>;
+};
+
+const Events = ({events}: EventsProps) => {
+  return events ? (
+    <>
+      {events.slice(0, 5).map((event) => (
         <UpcomingEvent
-          key={event.name + event.start_date}
+          key={`${event.name}${event.start_date}`}
           title={event.name}
           startdate={event.start_date}
         />
-      );
-    });
-  }
-
-  return <p>Loading, please wait...</p>;
+      ))}
+    </>
+  ) : (
+    <p>Loading, please wait...</p>
+  );
 };
 
 const Map = () => {
@@ -28,16 +35,28 @@ const Map = () => {
     <GoogleMap
       location={{lat: -31.9716063, lng: 115.8918229}}
       height="360px"
-      mapWidth="100%"
+      width="100%"
     />
   );
 };
 
-const Sermon = ({sermonData}) => {
+export type SermonData = {
+  _id: string;
+  image: SanityImageSource;
+  title: string;
+  passage: string;
+  url: string;
+};
+
+type SermonProps = {
+  sermonData: SermonData[];
+};
+
+const Sermon = ({sermonData}: SermonProps) => {
   const {_id, image, title, passage, url} = sermonData[0];
   return title ? (
     <div>
-      <img
+      <Image
         alt={title}
         sx={{display: 'flex', margin: 'auto', height: '150px'}}
         src={urlFor(image).maxHeight(150).fit('fill').url()}

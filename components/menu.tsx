@@ -3,50 +3,21 @@ import {jsx, Styled} from 'theme-ui';
 import Link from 'next/link';
 import {Text, Link as UILink} from '@theme-ui/components';
 
-const hoverVisible = {
-  visibility: 'visible',
-  opacity: '1',
-  display: 'block'
+export type MenuProps = {
+  items: Array<{
+    childpages?: Array<{
+      slug: {
+        current: string;
+      };
+      title: string;
+    }>;
+    current: string;
+    subtext: string;
+    title: string;
+  }>;
 };
 
-const ListItem = (props) => (
-  <Styled.li
-    {...props}
-    sx={{
-      position: 'relative',
-      lineHeight: '1.6',
-      px: [0, 4],
-      alignSelf: 'center',
-      color: '#444446',
-      '&:hover > ul': hoverVisible,
-      '&:focus-within > ul': hoverVisible,
-      '&:li ul:hover': hoverVisible
-    }}
-  />
-);
-
-const Submenu = (props) => (
-  <Styled.ul
-    {...props}
-    sx={{
-      zIndex: 1,
-      listStyle: 'none',
-      visibility: ['visible', 'hidden'],
-      opacity: ['1', '0'],
-      minWidth: '10rem',
-      position: ['unset', 'absolute'],
-      transition: 'opacity 0.5s ease',
-      left: '0',
-      display: ['block', 'none'],
-      padding: '0.75em 0',
-      borderRadius: '0.3125em',
-      backgroundColor: ['unset', 'white'],
-      boxShadow: ['none', '0 2px 12px rgba(0, 0, 0, 0.15)']
-    }}
-  />
-);
-
-const Menu = ({items}) => {
+const Menu = ({items}: MenuProps) => {
   return (
     <Styled.ul
       sx={{
@@ -58,12 +29,27 @@ const Menu = ({items}) => {
       }}
     >
       {items.map((item) => {
+        console.log(item.childpages);
         if (!item.childpages) {
           return null;
         }
 
         return (
-          <ListItem key={item.subtext}>
+          <Styled.li
+            key={item.subtext}
+            sx={{
+              position: 'relative',
+              lineHeight: '1.6',
+              px: [0, 4],
+              alignSelf: 'center',
+              color: '#444446',
+              '&:hover > ul, &:focus-within > ul': {
+                visibility: 'visible',
+                opacity: '1',
+                display: 'block'
+              }
+            }}
+          >
             <Link passHref href={`/${item.childpages[0].slug.current}`}>
               <UILink variant="nav">
                 <Text as="p" variant="menu">
@@ -75,7 +61,23 @@ const Menu = ({items}) => {
               </UILink>
             </Link>
             {item.childpages.length > 1 && (
-              <Submenu>
+              <Styled.ul
+                sx={{
+                  zIndex: 1,
+                  listStyle: 'none',
+                  visibility: ['visible', 'hidden'],
+                  opacity: ['1', '0'],
+                  minWidth: '10rem',
+                  position: ['unset', 'absolute'],
+                  transition: 'opacity 0.5s ease',
+                  left: '0',
+                  display: ['block', 'none'],
+                  padding: '0.75em 0',
+                  borderRadius: '0.3125em',
+                  backgroundColor: ['unset', 'white'],
+                  boxShadow: ['none', '0 2px 12px rgba(0, 0, 0, 0.15)']
+                }}
+              >
                 {item.childpages.map((child) => (
                   <Styled.li
                     key={child.slug.current + child.title}
@@ -94,9 +96,9 @@ const Menu = ({items}) => {
                     </Link>
                   </Styled.li>
                 ))}
-              </Submenu>
+              </Styled.ul>
             )}
-          </ListItem>
+          </Styled.li>
         );
       })}
     </Styled.ul>

@@ -1,12 +1,18 @@
 /** @jsx jsx */
-import {jsx, useThemeUI} from 'theme-ui';
+import {Button, Box, jsx, useThemeUI} from 'theme-ui';
 import PropTypes from 'prop-types';
 
-const CompButton = ({icon, text, color}) => {
+type CompButtonProps = {
+  icon: string;
+  text: string;
+  color: string;
+};
+
+const CompButton = ({icon, text, color}: CompButtonProps) => {
   const {theme} = useThemeUI();
 
   return (
-    <button
+    <Button
       type="button"
       sx={{
         display: 'flex',
@@ -21,7 +27,8 @@ const CompButton = ({icon, text, color}) => {
         fontFamily: 'body'
       }}
     >
-      <span
+      <Box
+        as="span"
         sx={{
           alignItems: 'center',
           display: 'inline-flex',
@@ -32,15 +39,15 @@ const CompButton = ({icon, text, color}) => {
           borderRadius: '50%',
           height: '2.75em',
           width: '2.75em',
-          border: `0.5em solid ${theme.colors[color]}`,
+          border: `0.5em solid ${theme.colors[color] as string}`,
           bg: 'primary',
           svg: {height: '1em', width: '1em', verticalAlign: 'middle'}
         }}
       >
         {icon}
-      </span>
+      </Box>
       <span>{text}</span>
-    </button>
+    </Button>
   );
 };
 

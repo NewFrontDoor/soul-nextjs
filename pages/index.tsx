@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import {jsx, Styled} from 'theme-ui';
+import {GetServerSideProps} from 'next';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import urlFor from '../utils/sanity-img';
@@ -140,8 +141,12 @@ const sermonQuery = `
   } | order(preachedDate desc)
   `;
 
-export async function getServerSideProps() {
-  const results = await fetchQuery(
+export const getServerSideProps: GetServerSideProps = async () => {
+  const results = await fetchQuery<{
+    mainData: Record<string, unknown>;
+    menuData: Record<string, unknown>;
+    sermonData: Record<string, unknown>;
+  }>(
     `{
         "mainData": ${mainQuery},
         "menuData": ${menuQuery},
@@ -181,11 +186,12 @@ export async function getServerSideProps() {
 
   const {events} = await response.json();
 
-  results.events = events?.event ?? [];
-
   return {
-    props: results
+    props: {
+      ...results,
+      events: events?.event ?? []
+    }
   };
-}
+};
 
 export default Home;

@@ -6,7 +6,7 @@ import {
   IoLogoInstagram
 } from 'react-icons/io';
 import {FaRegPlayCircle} from 'react-icons/fa';
-import {jsx, Styled, Grid, useThemeUI} from 'theme-ui';
+import {Box, jsx, Styled, Grid, useThemeUI} from 'theme-ui';
 import {Link} from '@theme-ui/components';
 import {Slimline} from '@newfrontdoor/footer';
 
@@ -14,7 +14,7 @@ const Footer = () => {
   const {theme} = useThemeUI();
   return (
     <>
-      <footer sx={{color: theme.colors.accent}}>
+      <Box as="footer" sx={{color: theme.colors.accent}}>
         <Grid
           sx={{
             bg: 'text',
@@ -22,7 +22,7 @@ const Footer = () => {
             padding: '40px 7.5vw 0 7.5vw'
           }}
         >
-          <div sx={{textAlign: 'center'}}>
+          <Box sx={{textAlign: 'center'}}>
             <IoIosPin
               sx={{
                 color: 'accent',
@@ -45,8 +45,8 @@ const Footer = () => {
               </Link>{' '}
               - 67 Federal Street, North Hobart
             </Styled.p>
-          </div>
-          <div sx={{textAlign: 'center'}}>
+          </Box>
+          <Box sx={{textAlign: 'center'}}>
             <IoIosMail
               sx={{
                 color: 'accent',
@@ -67,8 +67,8 @@ const Footer = () => {
                 elders@soulchurch.org.au
               </Link>
             </Styled.p>
-          </div>
-          <div sx={{textAlign: 'center'}}>
+          </Box>
+          <Box sx={{textAlign: 'center'}}>
             <IoLogoInstagram
               sx={{
                 color: 'background',
@@ -131,9 +131,9 @@ const Footer = () => {
                 Subscribe to our podcast
               </Link>
             </Styled.p>
-          </div>
+          </Box>
         </Grid>
-      </footer>
+      </Box>
       <Slimline />
     </>
   );

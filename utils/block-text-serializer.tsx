@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import BlockContent from '@sanity/block-content-to-react';
 import {Heading} from '@theme-ui/components';
-import {Styled, jsx} from 'theme-ui';
-import Link from 'next/link';
+import {Styled, Link, jsx} from 'theme-ui';
+import {default as NextLink} from 'next/link';
 import PropTypes from 'prop-types';
 import {
   Card,
@@ -16,13 +16,13 @@ import urlFor from './sanity-img';
 
 const passedLink = ({url, children, sx}) => {
   return url.type ? (
-    <Link href={`/${url.url}`}>
-      <a sx={{display: 'contents'}}>{children}</a>
-    </Link>
+    <NextLink href={`/${url.url}`} passHref>
+      <Link sx={{display: 'contents'}}>{children}</Link>
+    </NextLink>
   ) : (
-    <a sx={{display: 'contents'}} href={url.url}>
+    <Link sx={{display: 'contents'}} href={url.url}>
       {children}
-    </a>
+    </Link>
   );
 };
 
@@ -84,11 +84,11 @@ const GridBlockSerializer = ({node: {blocks, columns, style}}) => {
     <GridBlock
       items={blocks}
       columns={
-        (columns === undefined) | null
+        (typeof columns === 'undefined')
           ? `repeat(auto-fit, minmax(200px, 1fr))`
           : `repeat(${columns}, 1fr)`
       }
-      columnRawValue={(columns === undefined) | null ? 1 : columns}
+      columnRawValue={(typeof columns === 'undefined') ? 1 : columns}
       gap="20px"
       style={style}
       marginBottom="0"
@@ -108,16 +108,16 @@ GridBlockSerializer.propTypes = {
 const CustomLinkSerializer = ({mark, children}) => {
   if (mark.href.includes('#')) {
     return (
-      <Link passHref href={mark.href}>
+      <NextLink passHref href={mark.href}>
         <Styled.a>{children}</Styled.a>
-      </Link>
+      </NextLink>
     );
   }
 
   return (
-    <Link passHref href={mark.href}>
+    <NextLink passHref href={mark.href}>
       <Styled.a>{children}</Styled.a>
-    </Link>
+    </NextLink>
   );
 };
 
@@ -128,9 +128,9 @@ CustomLinkSerializer.propTypes = {
 
 const InternalLinkSerializer = ({mark, children}) => {
   return (
-    <Link passHref href={mark.slug}>
+    <NextLink passHref href={mark.slug}>
       <Styled.a>{children}</Styled.a>
-    </Link>
+    </NextLink>
   );
 };
 

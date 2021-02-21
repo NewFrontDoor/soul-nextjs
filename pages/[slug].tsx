@@ -1,4 +1,5 @@
 import React from 'react';
+import {GetServerSideProps} from 'next';
 import {Container} from '@theme-ui/components';
 import PropTypes from 'prop-types';
 import {fetchQuery} from '../lib/sanity';
@@ -36,9 +37,15 @@ Page.propTypes = {
   mainData: PropTypes.object.isRequired
 };
 
-export async function getServerSideProps({query}) {
+export const getServerSideProps: GetServerSideProps = async ({query}) => {
+  let slug = query.slug;
+
+  if (Array.isArray(slug)) {
+    slug = slug[0];
+  }
+
   const pageQuery = `
-    *[_type == "page" && '${query.slug}' match slug.current][0] {
+    *[_type == "page" && '${slug}' match slug.current][0] {
       ...,
       body[]{
         ...,
@@ -91,6 +98,6 @@ export async function getServerSideProps({query}) {
     }`
   );
   return {props};
-}
+};
 
 export default Page;

@@ -1,16 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {GoogleMap, LoadScript, Marker} from '@react-google-maps/api';
+import {
+  GoogleMap,
+  LoadScript,
+  Marker,
+  GoogleMapProps
+} from '@react-google-maps/api';
 import {mapsKey} from '../../lib/config';
 
-const Map = ({height, mapWidth, location}) => {
+type MapProps = {
+  height: string;
+  width: string;
+  location: GoogleMapProps['center'];
+};
+
+const Map = ({height, width, location}: MapProps) => {
   return (
     <LoadScript id="script-loader" googleMapsApiKey={mapsKey}>
       <GoogleMap
         id="example-map"
         mapContainerStyle={{
           height,
-          width: mapWidth
+          width
         }}
         zoom={14}
         center={{
@@ -37,5 +48,5 @@ export default Map;
 Map.propTypes = {
   location: PropTypes.object.isRequired,
   height: PropTypes.number.isRequired,
-  mapWidth: PropTypes.number
+  width: PropTypes.number
 };
